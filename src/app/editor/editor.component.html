@@ -1,1 +1,20 @@
-<p>editor works!</p>
+<mat-form-field>
+    <input matInput placeholder="Path" [(ngModel)]="path">
+</mat-form-field>
+{{path}}
+<mat-divider></mat-divider>
+<mat-form-field>
+    <mat-select placeholder="Method" [(value)]="method">
+        <mat-option *ngFor="let method of methods" value="{{method}}">{{method}}</mat-option>
+    </mat-select>
+</mat-form-field>
+{{method}}
+<mat-divider></mat-divider>
+<mat-form-field>
+    <input matInput placeholder="Description" [(ngModel)]="description">
+</mat-form-field>
+{{description}}
+<mat-form-field>
+        <input matInput placeholder="Summary" [(ngModel)]="summary">
+</mat-form-field>
+{{summary}}
