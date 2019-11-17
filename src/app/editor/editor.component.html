@@ -1,20 +1,64 @@
 <mat-form-field>
-    <input matInput placeholder="Path" [(ngModel)]="path">
+    <input matInput placeholder="Path" [(ngModel)]="path.path">
 </mat-form-field>
-{{path}}
-<mat-divider></mat-divider>
-<mat-form-field>
-    <mat-select placeholder="Method" [(value)]="method">
+<button mat-button data-toggle="modal" data-target="#modal" (click)="serialize()"></button>
+<mat-form-field style="width: 80%;">
+    <mat-select placeholder="Method" [(value)]="methodSelected">
         <mat-option *ngFor="let method of methods" value="{{method}}">{{method}}</mat-option>
     </mat-select>
 </mat-form-field>
-{{method}}
-<mat-divider></mat-divider>
-<mat-form-field>
-    <input matInput placeholder="Description" [(ngModel)]="description">
-</mat-form-field>
-{{description}}
-<mat-form-field>
-        <input matInput placeholder="Summary" [(ngModel)]="summary">
-</mat-form-field>
-{{summary}}
+<button mat-button (click)="addOperation()" [disabled]="!methods.length"><i class="material-icons">add</i></button>
+<mat-accordion>
+    <mat-expansion-panel *ngFor="let op of path.operations">
+        <mat-expansion-panel-header>
+            <p>{{op.method}}
+                <button mat-button><i (click)="removeOperation(op)" class="material-icons">clear</i></button>
+            </p>
+        </mat-expansion-panel-header>
+        <mat-form-field>
+            <input matInput placeholder="Description" [(ngModel)]="op.description">
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput placeholder="Summary" [(ngModel)]="op.summary">
+        </mat-form-field>
+        Params <button mat-button><i (click)="addParam(op.params)" class="material-icons">add</i></button>
+        <mat-grid-list cols="1" rowHeight="fit" rowWidth="fit" [style.height]="op.params.length * 250 + 'px'">
+            <mat-grid-tile *ngFor="let param of op.params" colspan="1" rowspan="1">
+                <mat-card-content class="custom">
+                    <mat-form-field>
+                        <mat-select placeholder="Location" [(value)]="param.in">
+                            <mat-option *ngFor="let location of paramLocations" value="{{location.toLowerCase()}}">
+                                {{location}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field>
+                        <input matInput placeholder="Name" [(ngModel)]="param.name">
+                    </mat-form-field>
+                    <mat-form-field>
+                        <input matInput placeholder="Description" [(ngModel)]="param.description">
+                    </mat-form-field>
+                    <mat-slide-toggle [(ngModel)]="param.required">Required</mat-slide-toggle><br>
+                    <button mat-button><i (click)="removeParam(op.params, param)"
+                            class="material-icons">clear</i></button>
+                </mat-card-content>
+            </mat-grid-tile>
+        </mat-grid-list>
+    </mat-expansion-panel>
+</mat-accordion>
+
+<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
+    aria-hidden="true" width="100%">
+    <div class="modal-dialog mw-100 w-90" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div #redoc>
+                    <redoc></redoc>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

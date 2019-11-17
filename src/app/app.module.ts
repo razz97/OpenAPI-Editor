@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -11,9 +11,15 @@ import {
   MatFormFieldModule,
   MatInputModule,
   MatSelectModule,
-  MatDividerModule
+  MatDividerModule,
+  MatExpansionModule,
+  MatGridListModule,
+  MatSlideToggleModule,
+  MatCardModule
+  
 } from '@angular/material';
-import { FormsModule } from '@angular/forms'
+import { FormsModule } from '@angular/forms';
+
 
 @NgModule({
   declarations: [
@@ -30,9 +36,14 @@ import { FormsModule } from '@angular/forms'
     MatInputModule,
     MatSelectModule,
     MatDividerModule,
-    FormsModule
+    FormsModule,
+    MatExpansionModule,
+    MatGridListModule,
+    MatSlideToggleModule,
+    MatCardModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  schemas: [NO_ERRORS_SCHEMA]
 })
 export class AppModule { }
