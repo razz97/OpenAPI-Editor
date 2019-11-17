@@ -20,33 +20,12 @@ export class EditorComponent implements OnInit {
   }
 
   @ViewChild('redoc', { static: true }) redoc: ElementRef;
-  @ViewChild(SchemaformComponent, { static: false }) childs: QueryList<SchemaformComponent>;
 
   public methods: Method[] = ["GET", "POST", "PUT", "DELETE"];
-  public paramLocations: ParamLocation[] = ["Path", "Query", "Header", "Cookie"];
-  public contentTypes: ContentType[] = ["application/json", "text/plain", "text/html", "application/xml"];
-
-  public collapsed = {
-    params: false,
-    responses: false
-  }
-
+  
   public methodSelected: Method = this.methods[0];
 
   public path: Path = new Path();
-
-  public addParam(params: Param[]) {
-    this.collapsed.params = false;
-    params.push(new Param());
-  }
-
-  public toggleCollapse(key: string) {
-    this.collapsed[key] = !this.collapsed[key];
-  }
-
-  public removeParam(params: Param[], param: Param) {
-    params.splice(params.indexOf(param), 1);
-  }
 
   public removeOperation(operation: Operation) {
     this.methods.push(operation.method);
@@ -61,14 +40,6 @@ export class EditorComponent implements OnInit {
     this.methods.splice(this.methods.indexOf(this.methodSelected), 1);
     this.methodSelected = this.methods[0];
     this.path.operations.push(new Operation(tmp));
-  }
-
-  public addResponse(responses: Response[]) {
-    responses.push(new Response());
-  }
-
-  public removeResponse(responses: Response[], response: Response) {
-    responses.splice(responses.indexOf(response), 1);
   }
 
   public refresh() {

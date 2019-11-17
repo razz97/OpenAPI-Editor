@@ -19,13 +19,17 @@ import {
   MatCardModule
 } from '@angular/material';
 import { SchemaformComponent } from './schemaform/schemaform.component';
+import { ParamsformComponent } from './paramsform/paramsform.component';
+import { ResponsesformComponent } from './responsesform/responsesform.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     EditorComponent,
     ExporterComponent,
-    SchemaformComponent
+    SchemaformComponent,
+    ParamsformComponent,
+    ResponsesformComponent
   ],
   imports: [
     BrowserModule,
