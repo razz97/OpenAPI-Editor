@@ -1,2 +1,17 @@
 html, body { height: 96%; }
 body { margin: 2%; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+mat-form-field {
+    width: 100%;
+}
+
+.custom.mat-card-content {
+    width: 100%;
+    padding:2%;
+}
+
+.w-90 {
+    width: 90%;
+}
+
+@import url("../node_modules/redoc/dist/redoc.css");
