@@ -1,8 +1,8 @@
-<mat-form-field>
+<mat-form-field class="w-75">
     <input matInput placeholder="Path" [(ngModel)]="path.path">
 </mat-form-field>
-<button mat-button data-toggle="modal" data-target="#modal" (click)="serialize()"></button>
-<mat-form-field style="width: 80%;">
+<button mat-button data-toggle="modal" data-target="#modal" (click)="refresh()">Preview</button>
+<mat-form-field class="w-75">
     <mat-select placeholder="Method" [(value)]="methodSelected">
         <mat-option *ngFor="let method of methods" value="{{method}}">{{method}}</mat-option>
     </mat-select>
