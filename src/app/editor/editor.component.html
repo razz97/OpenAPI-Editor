@@ -22,7 +22,7 @@
             <input matInput placeholder="Summary" [(ngModel)]="op.summary">
         </mat-form-field>
         Params <button mat-button><i (click)="addParam(op.params)" class="material-icons">add</i></button>
-        <mat-grid-list cols="1" rowHeight="fit" rowWidth="fit" [style.height]="op.params.length * 250 + 'px'">
+        <mat-grid-list cols="1" rowHeight="fit" rowWidth="fit" [style.height]="op.params.length * (200 + (child ? child.myHeight : 0)) + 'px'">
             <mat-grid-tile *ngFor="let param of op.params" colspan="1" rowspan="1">
                 <mat-card-content class="custom">
                     <mat-form-field>
@@ -38,12 +38,38 @@
                     <mat-form-field>
                         <input matInput placeholder="Description" [(ngModel)]="param.description">
                     </mat-form-field>
+                    <schemaform [schema]="param.schema"></schemaform>
                     <mat-slide-toggle [(ngModel)]="param.required">Required</mat-slide-toggle><br>
                     <button mat-button><i (click)="removeParam(op.params, param)"
                             class="material-icons">clear</i></button>
                 </mat-card-content>
             </mat-grid-tile>
         </mat-grid-list>
+        Responses <button mat-button><i (click)="addResponse(op.responses)" class="material-icons">add</i></button>
+        <mat-grid-list cols="1" rowHeight="fit" rowWidth="fit" [style.height]="op.responses.length * (200 + (child ? child.myHeight : 0)) + 'px'">
+            <mat-grid-tile *ngFor="let response of op.responses" colspan="1" rowspan="1">
+                <mat-card-content class="custom">
+                    <mat-form-field>
+                        <mat-select placeholder="Type" [(value)]="response.type">
+                            <mat-option *ngFor="let type of contentTypes" value="{{type}}">
+                                {{type}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field>
+                        <input matInput placeholder="Status code" [(ngModel)]="response.status">
+                    </mat-form-field>
+                    <mat-form-field>
+                        <input matInput placeholder="Description" [(ngModel)]="response.description">
+                    </mat-form-field>
+                    <schemaform [schema]="response.schema"></schemaform>
+                    <!-- <mat-slide-toggle [(ngModel)]="param.required">Required</mat-slide-toggle><br> -->
+                    <button mat-button><i (click)="removeResponse(op.responses, response)"
+                            class="material-icons">clear</i></button>
+                </mat-card-content>
+            </mat-grid-tile>
+        </mat-grid-list>
+
     </mat-expansion-panel>
 </mat-accordion>
 

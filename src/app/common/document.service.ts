@@ -45,10 +45,11 @@ export class DocumentService {
     }
 
     private buildOperationNode(op: Operation) {
-        const result = createNode({});
-        result.set('summary', op.summary);
-        result.set('description', op.description);
-        result.set('parameters', op.params);
+        const result = createNode({
+            'summary': op.summary,
+            'description': op.description,
+            'parameters': op.params
+        });
         if (op.tags) {
             result.set('tags', op.tags);
         }
@@ -61,8 +62,9 @@ export class DocumentService {
     }
 
     private buildResponseNode(resp: Response) {
-        const result = createNode({});
-        result.set('description', resp.description);
+        const result = createNode({
+            'description': resp.description
+        });
         const content = createNode({});
         content.set(resp.content, this.buildSchemaNode(resp.schema));
         result.set('content', content);
@@ -71,8 +73,9 @@ export class DocumentService {
 
     private buildSchemaNode(schema: Schema) {
         const result = createNode({});
-        const schemaNode = createNode({});
-        schemaNode.set('type', schema.type);
+        const schemaNode = createNode({
+            'type': schema.type
+        });
         if (schema.format) {
             schemaNode.set('format', schema.format);
         }

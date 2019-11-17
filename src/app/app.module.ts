@@ -18,12 +18,14 @@ import {
   MatSlideToggleModule,
   MatCardModule
 } from '@angular/material';
+import { SchemaformComponent } from './schemaform/schemaform.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     EditorComponent,
-    ExporterComponent
+    ExporterComponent,
+    SchemaformComponent
   ],
   imports: [
     BrowserModule,

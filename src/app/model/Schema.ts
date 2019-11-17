@@ -1,11 +1,12 @@
 
 import { Property } from './Property';
 
+export type SchemaType = "string" | "array" | "object" | "number" | "boolean";
+
 export class Schema {
 
-    public type: "string" | "array" | "object" | "number" | "boolean" = "string";
-
-    public description?: string = "desc";
+    public type: SchemaType = "string";
+    public description?: string = "";
     public format?: string = "";
     public nullable?: boolean = true;
 

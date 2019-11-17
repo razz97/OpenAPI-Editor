@@ -1,8 +1,11 @@
-import { Component, OnInit, Input, ViewChild, ElementRef, } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef, QueryList, } from '@angular/core';
 import { Path } from '../model/Path'
 import { Operation, Method } from '../model/Operation';
 import { Param, ParamLocation } from '../model/Param';
 import { DocumentService } from '../common/document.service';
+import { ContentType, Response } from '../model/Response';
+import { SchemaType } from '../model/Schema';
+import { SchemaformComponent } from '../schemaform/schemaform.component';
 
 declare const Redoc: any;
 
@@ -12,23 +15,24 @@ declare const Redoc: any;
 })
 export class EditorComponent implements OnInit {
 
-  constructor(private documentService: DocumentService) {}
+  constructor(private documentService: DocumentService) { }
 
   ngOnInit() {
   }
 
   @ViewChild('redoc', { static: true }) redoc: ElementRef;
+  @ViewChild(SchemaformComponent, { static: false }) childs: QueryList<SchemaformComponent>;
 
   public methods: Method[] = ["GET", "POST", "PUT", "DELETE"];
   public paramLocations: ParamLocation[] = ["Path", "Query", "Header", "Cookie"];
+  public contentTypes: ContentType[] = ["application/json", "text/plain", "text/html", "application/xml"];
 
   public methodSelected: Method = this.methods[0];
 
   public path: Path = new Path();
 
   public addParam(params: Param[]) {
-    const param: Param = new Param();
-    params.push(param);
+    params.push(new Param());
   }
 
   public removeParam(params: Param[], param: Param) {
@@ -48,6 +52,14 @@ export class EditorComponent implements OnInit {
     this.methods.splice(this.methods.indexOf(this.methodSelected), 1);
     this.methodSelected = this.methods[0];
     this.path.operations.push(new Operation(tmp));
+  }
+
+  public addResponse(responses: Response[]) {
+    responses.push(new Response());
+  }
+
+  public removeResponse(responses: Response[], response: Response) {
+    responses.splice(responses.indexOf(response), 1);
   }
 
   public refresh() {

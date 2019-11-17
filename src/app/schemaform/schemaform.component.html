@@ -1,0 +1,27 @@
+<!-- Indicate the type of the schema -->
+<mat-form-field>
+    <mat-select placeholder="Type" [(value)]="schema.type" (selectionChange)="typeChanged()">
+        <mat-option *ngFor="let type of schemaTypes" value="{{type}}">
+            {{type}}
+        </mat-option>
+    </mat-select>
+</mat-form-field>
+<!-- If type is an object we need to declare name and schema of all properties -->
+<div *ngIf="schema.properties">
+    Properties <button mat-button><i (click)="addProperty()" class="material-icons">add</i></button>
+    <mat-grid-list cols="1" rowHeight="fit" rowWidth="fit" [style.height]="propertiesHeight + 'px'">
+        <mat-grid-tile *ngFor="let property of schema.properties" colspan="1" rowspan="1">
+            <mat-card-content class="custom">
+                <mat-form-field>
+                    <input matInput placeholder="Name" [(ngModel)]="property.name">
+                </mat-form-field>
+                <schemaform [schema]="property.schema"></schemaform>
+                <button mat-button><i (click)="removeProperty(property)" class="material-icons">clear</i></button>
+            </mat-card-content>
+        </mat-grid-tile>
+    </mat-grid-list>
+</div>
+<!-- If type is an array we need the schema of the array -->
+<div *ngIf="schema.items !== undefined && schema.items !== null">
+    <schemaform [schema]="schema.items"></schemaform>
+</div>
