@@ -12,7 +12,7 @@
     <mat-expansion-panel *ngFor="let op of path.operations">
         <mat-expansion-panel-header>
             <p>{{op.method}}
-                <button mat-button><i (click)="removeOperation(op)" class="material-icons">clear</i></button>
+                <button mat-button (click)="removeOperation(op)"><i class="material-icons">clear</i></button>
             </p>
         </mat-expansion-panel-header>
         <mat-form-field>
@@ -21,8 +21,14 @@
         <mat-form-field>
             <input matInput placeholder="Summary" [(ngModel)]="op.summary">
         </mat-form-field>
-        Params <button mat-button><i (click)="addParam(op.params)" class="material-icons">add</i></button>
-        <div class="list-group">
+        <p>
+            Params <button mat-button (click)="addParam(op.params)" data-toggle="collapse" data-target="#paramsGroup"
+                aria-expanded="false" aria-controls="paramsGroup"><i class="material-icons">add</i></button>
+            <button mat-button (click)="toggleCollapse('params')" data-toggle="collapse" data-target="#paramsGroup"
+                aria-expanded="false" aria-controls="paramsGroup"><i
+                    class="material-icons">{{collapsed.params ? 'expand_more' : 'expand_less'}}</i></button>
+        </p>
+        <div class="list-group collapse show" id="paramsGroup">
             <div class="list-group-item" *ngFor="let param of op.params">
                 <mat-form-field>
                     <mat-select placeholder="Location" [(value)]="param.in">
@@ -39,11 +45,18 @@
                 </mat-form-field>
                 <schemaform [schema]="param.schema"></schemaform>
                 <mat-slide-toggle [(ngModel)]="param.required">Required</mat-slide-toggle><br>
-                <button mat-button><i (click)="removeParam(op.params, param)" class="material-icons">clear</i></button>
+                <button mat-button (click)="removeParam(op.params, param)"><i class="material-icons">clear</i></button>
             </div>
         </div>
-        Responses <button mat-button><i (click)="addResponse(op.responses)" class="material-icons">add</i></button>
-        <div class="list-group">
+        <p>
+            Responses <button mat-button (click)="addResponse(op.responses)" data-toggle="collapse"
+                data-target="#responsesGroup" aria-expanded="false" aria-controls="responsesGroup"><i
+                    class="material-icons">add</i></button>
+            <button mat-button (click)="toggleCollapse('responses')" data-toggle="collapse"
+                data-target="#responsesGroup" aria-expanded="false" aria-controls="responsesGroup"><i
+                    class="material-icons">{{collapsed.responses ? 'expand_more' : 'expand_less'}}</i></button>
+        </p>
+        <div class="list-group collapse show" id="responsesGroup">
             <div class="list-group-item" *ngFor="let response of op.responses">
                 <mat-form-field>
                     <mat-select placeholder="Type" [(value)]="response.type">
@@ -60,7 +73,7 @@
                 </mat-form-field>
                 <schemaform [schema]="response.schema"></schemaform>
                 <!-- <mat-slide-toggle [(ngModel)]="param.required">Required</mat-slide-toggle><br> -->
-                <button mat-button><i (click)="removeResponse(op.responses, response)"
+                <button mat-button (click)="removeResponse(op.responses, response)"><i
                         class="material-icons">clear</i></button>
             </div>
         </div>
