@@ -8,7 +8,7 @@ export class Schema {
     public type: SchemaType = "string";
     public description?: string = "";
     public format?: string = "";
-    public nullable?: boolean = true;
+    public nullable?: boolean = false;
 
     // To use enums, set type to string and fill values here
     public enum?: [string];

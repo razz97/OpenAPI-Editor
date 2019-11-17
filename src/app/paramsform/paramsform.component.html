@@ -1,6 +1,6 @@
 <p>
     Params
-    <button mat-button (click)="addParam()">
+    <button mat-button color="primary" (click)="addParam()">
         <i class="material-icons">add</i>
     </button>
     <button mat-button (click)="toggleCollapse()">
@@ -9,7 +9,7 @@
 </p>
 <div class="list-group collapse show" id="list-params">
     <div class="list-group-item" *ngFor="let param of params">
-        <button mat-button (click)="removeParam(param)">REMOVE</button>
+        <button mat-button color="warn" (click)="removeParam(param)"><i class="material-icons">clear</i></button>
         <mat-form-field>
             <mat-select placeholder="Location" [(value)]="param.in">
                 <mat-option *ngFor="let location of paramLocations" value="{{location.toLowerCase()}}">

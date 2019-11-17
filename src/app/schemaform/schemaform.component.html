@@ -15,14 +15,14 @@
 <mat-slide-toggle *ngIf="!isParam" [(ngModel)]="schema.nullable">Nullable</mat-slide-toggle>
 <!-- If type is an object we need to declare name and schema of all properties -->
 <div *ngIf="schema.properties !== undefined && schema.properties !== null">
-    Properties <button mat-button><i (click)="addProperty()" class="material-icons">add</i></button>
+    Properties <button color="primary" mat-button><i (click)="addProperty()" class="material-icons">add</i></button>
     <div class="list-group">
         <div class="list-group-item" *ngFor="let property of schema.properties">
             <mat-form-field>
                 <input matInput placeholder="Name" [(ngModel)]="property.name">
             </mat-form-field>
-            <schemaform [schema]="property.schema" [isParam]="true"></schemaform>
-            <button mat-button><i (click)="removeProperty(property)" class="material-icons">clear</i></button>
+            <schemaform [schema]="property.schema" [isParam]="isParam"></schemaform>
+            <button mat-button (click)="removeProperty(property)" color="warn"><i class="material-icons">clear</i></button>
         </div>
     </div>
 </div>

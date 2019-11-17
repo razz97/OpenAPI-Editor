@@ -1,6 +1,6 @@
 <p>
-    Responses 
-    <button mat-button (click)="addResponse()" id="addResponse">
+    Responses
+    <button mat-button color="primary" (click)="addResponse()" id="addResponse">
         <i class="material-icons">add</i>
     </button>
     <button mat-button (click)="toggleCollapse()">
@@ -9,6 +9,7 @@
 </p>
 <div class="list-group collapse show" id="list-responses">
     <div class="list-group-item" *ngFor="let response of responses">
+        <button mat-button color="warn" (click)="removeResponse(response)"><i class="material-icons">clear</i></button>
         <mat-form-field>
             <mat-select placeholder="Type" [(value)]="response.type">
                 <mat-option *ngFor="let type of contentTypes" value="{{type}}">
@@ -22,7 +23,6 @@
         <mat-form-field>
             <input matInput placeholder="Description" [(ngModel)]="response.description">
         </mat-form-field>
-        <schemaform [schema]="response.schema"></schemaform>
-        <button mat-button (click)="removeResponse(response)"><i class="material-icons">clear</i></button>
+        <schemaform [schema]="response.schema" [isParam]="false"></schemaform>
     </div>
 </div>

@@ -43,9 +43,13 @@ export class EditorComponent implements OnInit {
   }
 
   public refresh() {
-    Redoc.init(this.documentService.buildDocument(this.path).toJSON(), {pathInMiddlePanel: true}, this.redoc.nativeElement);
+    Redoc.init(
+      this.documentService.buildDocument(this.path).toJSON(), 
+      {
+        pathInMiddlePanel: true, 
+        hideDownloadButton: true
+      }, 
+      this.redoc.nativeElement);
   }
-
-
 
 }
