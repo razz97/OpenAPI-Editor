@@ -66,13 +66,23 @@ export class DocumentService {
             'description': resp.description
         });
         const content = createNode({});
-        content.set(resp.content, this.buildSchemaNode(resp.schema));
+        const schemaNode = createNode({
+            'schema': this.buildSchemaNode(resp.schema)
+        });
+        content.set(resp.content, schemaNode);
         result.set('content', content);
         return result;
     }
 
-    private buildSchemaNode(schema: Schema) {
+    private buildPropertiesNode(properties: Property[]) {
         const result = createNode({});
+        for (const prop of properties) {
+            result.set(prop.name, this.buildSchemaNode(prop.schema));
+        }
+        return result;
+    }
+
+    private buildSchemaNode(schema: Schema) {
         const schemaNode = createNode({
             'type': schema.type
         });
@@ -94,16 +104,8 @@ export class DocumentService {
         if (schema.items) {
             schemaNode.set('items', this.buildSchemaNode(schema.items))
         }
-        result.set('schema', schemaNode);
-        return result;
+        return schemaNode;
     }
 
-    private buildPropertiesNode(properties: Property[]) {
-        const result = createNode({});
-        for (const prop of properties) {
-            result.set(prop.name, this.buildSchemaNode(prop.schema));
-        }
-        return result;
-    }
 
 }
