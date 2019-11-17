@@ -5,8 +5,7 @@ declare let $ : any;
 
 @Component({
   selector: 'paramsform',
-  templateUrl: './paramsform.component.html',
-  styleUrls: ['./paramsform.component.css']
+  templateUrl: './paramsform.component.html'
 })
 export class ParamsformComponent implements OnInit {
 

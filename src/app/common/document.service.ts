@@ -30,9 +30,9 @@ export class DocumentService {
         return createNode({
             'openapi': '3.0.1',
             'info': {
-                'x-logo': {
-                    'url': 'http://onebox-api-docs.s3.amazonaws.com/assets/img/logoob.svg'
-                }
+                // 'x-logo': {
+                //     'url': 'http://onebox-api-docs.s3.amazonaws.com/assets/img/logoob.svg'
+                // }
             },
             'components': {
                 'securitySchemes': {

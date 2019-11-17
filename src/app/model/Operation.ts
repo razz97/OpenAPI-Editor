@@ -10,10 +10,10 @@ export class Operation {
     }
 
     public method: Method;
-    public description?: string = "";
-    public summary?: string = "";
-    public tags?: string[];
-    public params?: Param[] = [new Param()];
-    public responses: Response[] = [new Response()];
+    public description: string = "";
+    public summary: string = "";
+    public tags: string[] = [];
+    public params: Param[] = [];
+    public responses: Response[] = [];
 
 }

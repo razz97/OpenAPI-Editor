@@ -4,20 +4,24 @@ import { Property } from '../model/Property';
 
 @Component({
   selector: 'schemaform',
-  templateUrl: './schemaform.component.html',
-  styleUrls: ['./schemaform.component.css']
+  templateUrl: './schemaform.component.html'
 })
 export class SchemaformComponent implements OnInit {
 
   constructor() { }
 
   ngOnInit() {
+    if (this.isParam) {
+      this.schemaTypes = this.schemaTypesParam;
+    }
   }
-
+  private schemaTypesParam: SchemaType[] = ["string", "number", "boolean"];
   public schemaTypes: SchemaType[] = ["string", "array", "object", "number", "boolean"];
 
   @Input() 
   public schema: Schema;
+  @Input()
+  public isParam: boolean;
 
   typeChanged() {
     switch(this.schema.type) {

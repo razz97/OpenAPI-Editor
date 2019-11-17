@@ -5,8 +5,7 @@ declare let $ : any;
 
 @Component({
   selector: 'responses-form',
-  templateUrl: './responsesform.component.html',
-  styleUrls: ['./responsesform.component.css']
+  templateUrl: './responsesform.component.html'
 })
 export class ResponsesformComponent implements OnInit {
 

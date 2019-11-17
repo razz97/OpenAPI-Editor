@@ -6,6 +6,13 @@
         </mat-option>
     </mat-select>
 </mat-form-field>
+<mat-form-field *ngIf="!isParam">
+        <input matInput placeholder="Description" [(ngModel)]="schema.description">
+</mat-form-field>
+<mat-form-field *ngIf="schema.type === 'string' || schema.type === 'number'">
+        <input matInput placeholder="Format" [(ngModel)]="schema.format">
+</mat-form-field>
+<mat-slide-toggle *ngIf="!isParam" [(ngModel)]="schema.nullable">Nullable</mat-slide-toggle>
 <!-- If type is an object we need to declare name and schema of all properties -->
 <div *ngIf="schema.properties !== undefined && schema.properties !== null">
     Properties <button mat-button><i (click)="addProperty()" class="material-icons">add</i></button>
@@ -14,7 +21,7 @@
             <mat-form-field>
                 <input matInput placeholder="Name" [(ngModel)]="property.name">
             </mat-form-field>
-            <schemaform [schema]="property.schema"></schemaform>
+            <schemaform [schema]="property.schema" [isParam]="true"></schemaform>
             <button mat-button><i (click)="removeProperty(property)" class="material-icons">clear</i></button>
         </div>
     </div>
