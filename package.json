@@ -6,9 +6,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e",
     "electron": "electron . --disable-gpu",
     "electron-build": "ng build --prod && electron . --disable-gpu"
   },

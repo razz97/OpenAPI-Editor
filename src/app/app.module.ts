@@ -18,7 +18,7 @@ import {
   MatSlideToggleModule,
   MatCardModule
 } from '@angular/material';
-import { SchemaComponent } from './schemaform/schema.component';
+import { SchemaComponent } from './schema/schema.component';
 import { ParamsComponent } from './params/params.component';
 import { ResponsesComponent } from './responses/responses.component';
 
