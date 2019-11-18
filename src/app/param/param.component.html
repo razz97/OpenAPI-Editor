@@ -1,0 +1,16 @@
+<button mat-button color="primary" (click)="back()"><i class="material-icons">keyboard_backspace</i></button>
+<mat-form-field>
+    <mat-select placeholder="Location" [(value)]="param.in">
+        <mat-option *ngFor="let location of paramLocations" value="{{location.toLowerCase()}}">
+            {{location}}
+        </mat-option>
+    </mat-select>
+</mat-form-field>
+<mat-form-field>
+    <input matInput placeholder="Name" [(ngModel)]="param.name">
+</mat-form-field>
+<mat-form-field>
+    <input matInput placeholder="Description" [(ngModel)]="param.description">
+</mat-form-field>
+<schemaform [schema]="param.schema" [isParam]="true"></schemaform>
+<mat-slide-toggle [(ngModel)]="param.required" style.left-margin="5px">Required</mat-slide-toggle>

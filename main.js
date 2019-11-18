@@ -1,4 +1,4 @@
-const { app, BrowserWindow, Menu, screen, ipcMain } = require('electron')
+const { app, BrowserWindow, Menu, screen } = require('electron')
 
 let win;
 Menu.setApplicationMenu(null);

@@ -1,5 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Param, ParamLocation } from '../model/Param';
+import { Router } from '@angular/router';
+import { DataService } from '../services/data.service';
 
 declare let $ : any;
 
@@ -9,14 +11,17 @@ declare let $ : any;
 })
 export class ParamsComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private router: Router,
+    private dataService: DataService
+  ) { }
 
   ngOnInit() {
   }
 
   @Input() public params: Param[]; 
 
-  public paramLocations: ParamLocation[] = ["Path", "Query", "Header", "Cookie"];
+
 
   public collapsed: boolean = false
 
@@ -33,6 +38,11 @@ export class ParamsComponent implements OnInit {
 
   public removeParam(param: Param) {
     this.params.splice(this.params.indexOf(param), 1);
+  }
+
+  public editParam(param: Param) {
+    this.router.navigateByUrl('param');
+    this.dataService.sendParam(param);
   }
 
 }

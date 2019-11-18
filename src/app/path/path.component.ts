@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Path } from '../model/Path';
 import { Operation, Method } from '../model/Operation';
-import { DocumentService } from '../common/document.service';
+import { DocumentService } from '../services/document.service';
 import { Remote } from 'electron';
 
 declare const Redoc: any;
@@ -10,7 +10,7 @@ declare const Redoc: any;
   selector: 'app-editor',
   templateUrl: './path.component.html'
 })
-export class PahtComponent implements OnInit {
+export class PathComponent implements OnInit {
 
   remote: Remote;
 
