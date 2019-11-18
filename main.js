@@ -1,4 +1,4 @@
-const { app, BrowserWindow, Menu, screen } = require('electron')
+const { app, BrowserWindow, Menu, screen, ipcMain } = require('electron')
 
 let win;
 Menu.setApplicationMenu(null);
@@ -10,7 +10,10 @@ function createWindow() {
     width: width / 2,
     height: height / 2,
     backgroundColor: '#ffffff',
-    icon: `file://${__dirname}/dist/assets/logo.png`
+    icon: `file://${__dirname}/dist/assets/logo.png`,
+    webPreferences: {
+      nodeIntegration: true
+    }
   })
 
   // Allow user to resize window
@@ -27,8 +30,6 @@ function createWindow() {
     win = null
   })
 }
-
-
 
 // Create window on electron intialization
 app.on('ready', createWindow)

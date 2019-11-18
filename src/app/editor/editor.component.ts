@@ -1,10 +1,8 @@
-import { Component, OnInit, ViewChild, ElementRef, QueryList, } from '@angular/core';
-import { Path } from '../model/Path'
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Path } from '../model/Path';
 import { Operation, Method } from '../model/Operation';
-import { Param, ParamLocation } from '../model/Param';
 import { DocumentService } from '../common/document.service';
-import { ContentType, Response } from '../model/Response';
-import { SchemaformComponent } from '../schemaform/schemaform.component';
+import { Remote } from 'electron';
 
 declare const Redoc: any;
 
@@ -14,7 +12,13 @@ declare const Redoc: any;
 })
 export class EditorComponent implements OnInit {
 
-  constructor(private documentService: DocumentService) { }
+  remote: Remote;
+
+  constructor(
+    private documentService: DocumentService,
+  ) {
+    this.remote = (<any>window).require('electron').remote;
+  }
 
   ngOnInit() {
   }
@@ -22,7 +26,7 @@ export class EditorComponent implements OnInit {
   @ViewChild('redoc', { static: true }) redoc: ElementRef;
 
   public methods: Method[] = ["GET", "POST", "PUT", "DELETE"];
-  
+
   public methodSelected: Method = this.methods[0];
 
   public path: Path = new Path();
@@ -44,12 +48,21 @@ export class EditorComponent implements OnInit {
 
   public refresh() {
     Redoc.init(
-      this.documentService.buildDocument(this.path).toJSON(), 
+      this.documentService.buildDocument(this.path).toJSON(),
       {
-        pathInMiddlePanel: true, 
+        pathInMiddlePanel: true,
         hideDownloadButton: true
-      }, 
+      },
       this.redoc.nativeElement);
   }
+
+
+  save() {
+    const folder = this.remote.dialog.showSaveDialogSync({});
+    if (folder) {
+      this.remote.require('fs').appendFileSync(folder, this.documentService.buildDocument(this.path).toString());
+    }
+  }
+
 
 }
