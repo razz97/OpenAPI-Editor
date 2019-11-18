@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { EditorComponent } from './editor/editor.component';
+import { PahtComponent } from './path/path.component';
 import { ExporterComponent } from './exporter/exporter.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
@@ -18,18 +18,18 @@ import {
   MatSlideToggleModule,
   MatCardModule
 } from '@angular/material';
-import { SchemaformComponent } from './schemaform/schemaform.component';
-import { ParamsformComponent } from './paramsform/paramsform.component';
-import { ResponsesformComponent } from './responsesform/responsesform.component';
+import { SchemaComponent } from './schemaform/schema.component';
+import { ParamsComponent } from './params/params.component';
+import { ResponsesComponent } from './responses/responses.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    EditorComponent,
+    PahtComponent,
     ExporterComponent,
-    SchemaformComponent,
-    ParamsformComponent,
-    ResponsesformComponent
+    SchemaComponent,
+    ParamsComponent,
+    ResponsesComponent
   ],
   imports: [
     BrowserModule,

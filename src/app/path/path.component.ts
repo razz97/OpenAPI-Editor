@@ -8,9 +8,9 @@ declare const Redoc: any;
 
 @Component({
   selector: 'app-editor',
-  templateUrl: './editor.component.html'
+  templateUrl: './path.component.html'
 })
-export class EditorComponent implements OnInit {
+export class PahtComponent implements OnInit {
 
   remote: Remote;
 

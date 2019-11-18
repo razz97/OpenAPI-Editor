@@ -4,9 +4,9 @@ import { Property } from '../model/Property';
 
 @Component({
   selector: 'schemaform',
-  templateUrl: './schemaform.component.html'
+  templateUrl: './schema.component.html'
 })
-export class SchemaformComponent implements OnInit {
+export class SchemaComponent implements OnInit {
 
   constructor() { }
 
