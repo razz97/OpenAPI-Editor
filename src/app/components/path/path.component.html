@@ -3,12 +3,14 @@
 </mat-form-field>
 <button mat-button color="primary" data-toggle="modal" data-target="#modal" (click)="refresh()">Preview</button>
 <button mat-button color="primary" (click)="save()">Save</button>
+<!-- Add operation -->
 <mat-form-field class="w-75">
     <mat-select placeholder="Method" [(value)]="methodSelected">
         <mat-option *ngFor="let method of methods" value="{{method}}">{{method}}</mat-option>
     </mat-select>
 </mat-form-field>
 <button mat-button color="primary" (click)="addOperation()" [disabled]="!methods.length"><i class="material-icons">add</i></button>
+<!-- Operations accordion -->
 <mat-accordion>
     <mat-expansion-panel *ngFor="let op of path.operations">
         <mat-expansion-panel-header>
@@ -26,8 +28,8 @@
         <responses-form [responses]="op.responses"></responses-form>
     </mat-expansion-panel>
 </mat-accordion>
-<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true"
-    >
+<!-- Preview modal -->
+<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
     <div class="modal-dialog mw-100 w-90" role="document">
         <div class="modal-content">
             <div class="modal-body" #redoc>

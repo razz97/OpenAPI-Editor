@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, ViewChild, QueryList, EventEmitter } from '@angular/core';
-import { Schema, SchemaType } from '../model/Schema';
-import { Property } from '../model/Property';
+import { Schema, SchemaType } from '../../model/Schema';
+import { Property } from '../../model/Property';
 
 @Component({
   selector: 'schemaform',

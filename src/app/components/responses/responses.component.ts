@@ -1,5 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ContentType, Response } from '../model/Response';
+import { ContentType, Response } from '../../model/Response';
+import { Router } from '@angular/router';
+import { DataService } from '../../services/data.service';
 
 declare let $ : any;
 
@@ -7,15 +9,14 @@ declare let $ : any;
   selector: 'responses-form',
   templateUrl: './responses.component.html'
 })
-export class ResponsesComponent implements OnInit {
+export class ResponsesComponent {
 
-  constructor() { }
-
-  ngOnInit() {}
+  constructor(
+    private router: Router, 
+    private dataService: DataService
+  ) { }
 
   @Input() public responses: Response[];
-  
-  public contentTypes: ContentType[] = ["application/json", "text/plain", "text/html", "application/xml"];
 
   public collapsed: boolean = false;
 
@@ -32,6 +33,11 @@ export class ResponsesComponent implements OnInit {
 
   public removeResponse(response: Response) {
     this.responses.splice(this.responses.indexOf(response), 1);
+  }
+
+  public editResponse(response: Response) {
+    this.router.navigateByUrl('response');
+    this.dataService.sendResponse(response);
   }
 
 }

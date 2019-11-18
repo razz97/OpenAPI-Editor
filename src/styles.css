@@ -1,8 +1,17 @@
-html, body { height: 96%; }
-body { margin: 2%; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html, body { 
+    height: 96%; 
+}
+body { 
+    margin: 2%; 
+    font-family: Roboto, "Helvetica Neue", sans-serif; 
+}
 
 mat-form-field {
     width: 100%;
+}
+
+response, param {
+    display: inline;
 }
 
 .custom.mat-card-content {
@@ -13,4 +22,3 @@ mat-form-field {
 .w-90 {
     width: 90%;
 }
-

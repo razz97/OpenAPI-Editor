@@ -2,8 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { PathComponent } from './path/path.component';
-import { ExporterComponent } from './exporter/exporter.component';
+import { PathComponent } from './components/path/path.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import { DocumentService } from './services/document.service';
@@ -18,23 +17,24 @@ import {
   MatSlideToggleModule,
   MatCardModule
 } from '@angular/material';
-import { SchemaComponent } from './schema/schema.component';
-import { ParamsComponent } from './params/params.component';
-import { ResponsesComponent } from './responses/responses.component';
-import { ParamComponent } from './param/param.component';
+import { SchemaComponent } from './components/schema/schema.component';
+import { ParamsComponent } from './components/params/params.component';
+import { ResponsesComponent } from './components/responses/responses.component';
+import { ParamComponent } from './components/param/param.component';
 import { DataService } from './services/data.service';
 import { RouteReuseStrategy } from '@angular/router';
-import { CustomReuseStrategy } from './path/reuse';
+import { ReuseStrategy } from './ReuseStrategy';
+import { ResponseComponent } from './components/response/response.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     PathComponent,
-    ExporterComponent,
     SchemaComponent,
     ParamsComponent,
     ResponsesComponent,
-    ParamComponent
+    ParamComponent,
+    ResponseComponent
   ],
   imports: [
     BrowserModule,
@@ -51,7 +51,7 @@ import { CustomReuseStrategy } from './path/reuse';
     MatSlideToggleModule,
     MatCardModule
   ],
-  providers: [DocumentService, DataService, {provide: RouteReuseStrategy, useClass: CustomReuseStrategy}],
+  providers: [DocumentService, DataService, { provide: RouteReuseStrategy, useClass: ReuseStrategy }],
   bootstrap: [AppComponent],
   schemas: [NO_ERRORS_SCHEMA]
 })

@@ -1,4 +1,3 @@
-<!-- Indicate the type of the schema -->
 <mat-form-field>
     <mat-select placeholder="Type" [(value)]="schema.type" (selectionChange)="typeChanged()">
         <mat-option *ngFor="let type of schemaTypes" value="{{type}}">
@@ -6,14 +5,15 @@
         </mat-option>
     </mat-select>
 </mat-form-field>
+<!-- If param show description and nullable, if type is number show format -->
 <mat-form-field *ngIf="!isParam">
         <input matInput placeholder="Description" [(ngModel)]="schema.description">
 </mat-form-field>
-<mat-form-field *ngIf="schema.type === 'string' || schema.type === 'number'">
+<mat-form-field *ngIf="schema.type === 'number'">
         <input matInput placeholder="Format" [(ngModel)]="schema.format">
 </mat-form-field>
 <mat-slide-toggle *ngIf="!isParam" [(ngModel)]="schema.nullable">Nullable</mat-slide-toggle>
-<!-- If type is an object we need to declare name and schema of all properties -->
+<!-- If type is object display properties -->
 <div *ngIf="schema.properties !== undefined && schema.properties !== null">
     Properties <button color="primary" mat-button><i (click)="addProperty()" class="material-icons">add</i></button>
     <div class="list-group">
@@ -26,12 +26,12 @@
         </div>
     </div>
 </div>
-<!-- If type is an array we need the schema of the array -->
+<!-- If type is array display schema -->
 <div *ngIf="schema.items !== undefined && schema.items !== null">
     Array Schema
     <div class="list-group">
         <div class="list-group-item">
-            <schemaform [schema]="schema.items"></schemaform>
+            <schemaform [schema]="schema.items" [isParam]="isParam"></schemaform>
         </div>
     </div>
 </div>

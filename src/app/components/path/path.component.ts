@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { Path } from '../model/Path';
-import { Operation, Method } from '../model/Operation';
-import { DocumentService } from '../services/document.service';
+import { Path } from '../../model/Path';
+import { Operation, Method } from '../../model/Operation';
+import { DocumentService } from '../../services/document.service';
 import { Remote } from 'electron';
 
 declare const Redoc: any;

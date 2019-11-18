@@ -1,15 +1,15 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { PathComponent } from './path/path.component';
-import { ExporterComponent } from './exporter/exporter.component';
-import { ParamComponent } from './param/param.component';
+import { PathComponent } from './components/path/path.component';
+import { ParamComponent } from './components/param/param.component';
+import { ResponseComponent } from './components/response/response.component';
 
 
 const routes: Routes = [
-  { path: '', redirectTo: 'editor', pathMatch: 'full' },
-  { path: 'editor', component: PathComponent },
-  { path: 'exporter', component: ExporterComponent },
-  { path: 'param', component: ParamComponent }
+  { path: '', redirectTo: 'path', pathMatch: 'full' },
+  { path: 'path', component: PathComponent },
+  { path: 'param', component: ParamComponent },
+  { path: 'response', component: ResponseComponent }
 ];
 
 @NgModule({

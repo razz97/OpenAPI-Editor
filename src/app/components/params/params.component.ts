@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Param, ParamLocation } from '../model/Param';
+import { Param, ParamLocation } from '../../model/Param';
 import { Router } from '@angular/router';
-import { DataService } from '../services/data.service';
+import { DataService } from '../../services/data.service';
 
 declare let $ : any;
 
@@ -9,19 +9,14 @@ declare let $ : any;
   selector: 'paramsform',
   templateUrl: './params.component.html'
 })
-export class ParamsComponent implements OnInit {
+export class ParamsComponent {
 
   constructor(
     private router: Router,
     private dataService: DataService
   ) { }
 
-  ngOnInit() {
-  }
-
   @Input() public params: Param[]; 
-
-
 
   public collapsed: boolean = false
 
