@@ -24,8 +24,32 @@
         <mat-form-field>
             <input matInput placeholder="Summary" [(ngModel)]="op.summary">
         </mat-form-field>
-        <paramsform [params]="op.params"></paramsform><hr>
-        <responses-form [responses]="op.responses"></responses-form>
+        <p>
+            Params
+            <button mat-button color="primary" (click)="addParam(op.params)">
+                <i class="material-icons">add</i>
+            </button>
+        </p>
+        <div class="list-group" id="list-params">
+            <div class="list-group-item" *ngFor="let param of op.params">
+                {{param.name ? param.name : 'New param' }}
+                <button mat-button color="primary" (click)="editParam(param)" ><i class="material-icons">edit</i></button>
+                <button mat-button color="warn" (click)="removeParam(op.params, param)"><i class="material-icons">clear</i></button>
+            </div>
+        </div>
+        <p>
+            Responses
+            <button mat-button color="primary" (click)="addResponse(op.responses)" id="addResponse">
+                <i class="material-icons">add</i>
+            </button>
+        </p>
+        <div class="list-group" id="list-responses">
+            <div class="list-group-item" *ngFor="let response of op.responses">
+                {{response.status ? response.status : 'New response' }}
+                <button mat-button color="primary" (click)="editResponse(response)"><i class="material-icons">edit</i></button>
+                <button mat-button color="warn" (click)="removeResponse(op.responses, response)"><i class="material-icons">clear</i></button>
+            </div>
+        </div>
     </mat-expansion-panel>
 </mat-accordion>
 <!-- Preview modal -->
