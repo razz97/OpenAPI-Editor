@@ -1,57 +1,47 @@
-import { BrowserModule } from '@angular/platform-browser';
+// Angular core
 import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
+// Router related
 import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { PathComponent } from './components/path/path.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FormsModule } from '@angular/forms';
-import { DocumentService } from './services/document.service';
-import {
-  MatButtonModule,
-  MatFormFieldModule,
-  MatInputModule,
-  MatSelectModule,
-  MatDividerModule,
-  MatExpansionModule,
-  MatGridListModule,
-  MatSlideToggleModule,
-  MatCardModule
-} from '@angular/material';
-import { SchemaComponent } from './components/schema/schema.component';
-import { ParamsComponent } from './components/params/params.component';
-import { ResponsesComponent } from './components/responses/responses.component';
-import { ParamComponent } from './components/param/param.component';
-import { DataService } from './services/data.service';
 import { RouteReuseStrategy } from '@angular/router';
 import { ReuseStrategy } from './ReuseStrategy';
+// External dependencies
+import { ExternalModule } from './external.module';
+// Services
+import { DataService } from './services/data.service';
+import { DocumentService } from './services/document.service';
+// Components
+import { PathComponent } from './components/path/path.component';
+import { SchemaComponent } from './components/schema/schema.component';
+import { ParamComponent } from './components/param/param.component';
+import { AppComponent } from './app.component';
 import { ResponseComponent } from './components/response/response.component';
+import { RootComponent } from './components/root/root.component';
+import { ServerComponent } from './components/server/server.component';
+import { TagGroupComponent } from './components/tag-group/tag-group.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     PathComponent,
     SchemaComponent,
-    ParamsComponent,
-    ResponsesComponent,
     ParamComponent,
-    ResponseComponent
+    ResponseComponent,
+    RootComponent,
+    ServerComponent,
+    TagGroupComponent
   ],
   imports: [
-    BrowserModule,
     AppRoutingModule,
-    BrowserAnimationsModule,
-    MatButtonModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatSelectModule,
-    MatDividerModule,
-    FormsModule,
-    MatExpansionModule,
-    MatGridListModule,
-    MatSlideToggleModule,
-    MatCardModule
+    ExternalModule
   ],
-  providers: [DocumentService, DataService, { provide: RouteReuseStrategy, useClass: ReuseStrategy }],
+  providers: [
+    DocumentService,
+    DataService,
+    {
+      provide: RouteReuseStrategy,
+      useClass: ReuseStrategy
+    }
+  ],
   bootstrap: [AppComponent],
   schemas: [NO_ERRORS_SCHEMA]
 })
