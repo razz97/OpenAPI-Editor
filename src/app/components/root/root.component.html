@@ -1,0 +1,54 @@
+<mat-form-field>
+    <input matInput placeholder="Api title" [(ngModel)]="root.info.title">
+</mat-form-field>
+<mat-form-field>
+    <input matInput placeholder="Contact name" [(ngModel)]="root.info.contact.name">
+</mat-form-field>
+<mat-form-field>
+    <input matInput placeholder="Contact email" [(ngModel)]="root.info.contact.email">
+</mat-form-field>
+<mat-form-field>
+    <input matInput placeholder="Logo url" [(ngModel)]="root.info.logo">
+</mat-form-field>
+<mat-form-field>
+    <input matInput placeholder="Description" [(ngModel)]="root.info.description">
+</mat-form-field>
+<p>
+    Servers
+    <button mat-button color="primary" (click)="addServer()">
+        <i class="material-icons">add</i>
+    </button>
+</p>
+<div class="list-group">
+    <div class="list-group-item" *ngFor="let server of root.servers">
+        {{server.url ? server.url : 'New server' }}
+        <button mat-button color="warn" (click)="editServer(server)"><i class="material-icons">edit</i></button>
+        <button mat-button color="warn" (click)="removeServer(server)"><i class="material-icons">clear</i></button>
+    </div>
+</div>
+<p>
+    Tag groups
+    <button mat-button color="primary" (click)="addGroup()">
+        <i class="material-icons">add</i>
+    </button>
+</p>
+<div class="list-group">
+    <div class="list-group-item" *ngFor="let group of root.tagGroups">
+        {{group.name ? group.name : 'New group' }}
+        <button mat-button color="primary" (click)="editGroup(group)" ><i class="material-icons">edit</i></button>
+        <button mat-button color="warn" (click)="removeGroup(group)"><i class="material-icons">clear</i></button>
+    </div>
+</div>
+<p>
+    Paths
+    <button mat-button color="primary" (click)="addPath()">
+        <i class="material-icons">add</i>
+    </button>
+</p>
+<div class="list-group">
+    <div class="list-group-item" *ngFor="let path of root.paths">
+        {{path.path ? path.path : 'New path' }}
+        <button mat-button color="primary" (click)="editPath(path)" ><i class="material-icons">edit</i></button>
+        <button mat-button color="warn" (click)="removePath(path)"><i class="material-icons">clear</i></button>
+    </div>
+</div>

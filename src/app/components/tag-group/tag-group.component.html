@@ -1,0 +1,19 @@
+<button mat-button color="primary" (click)="back()"><i class="material-icons">keyboard_backspace</i></button>
+<mat-form-field>
+    <input matInput placeholder="Name" [(ngModel)]="tagGroup.name">
+</mat-form-field> 
+<p>
+    Tags
+    <button mat-button color="primary" (click)="addTag()">
+        <i class="material-icons">add</i>
+    </button>
+</p>
+
+<div class="list-group">
+    <div class="list-group-item" *ngFor="let tag of tagGroup.tags; let i = index">
+        <mat-form-field>
+            <input matInput placeholder="Name" [(ngModel)]="tagGroup.tags[i]">
+        </mat-form-field>
+        <button mat-button color="warn" (click)="removeTag(i)"><i class="material-icons">clear</i></button>
+    </div>
+</div> 

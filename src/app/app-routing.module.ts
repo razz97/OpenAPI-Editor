@@ -3,10 +3,16 @@ import { Routes, RouterModule } from '@angular/router';
 import { PathComponent } from './components/path/path.component';
 import { ParamComponent } from './components/param/param.component';
 import { ResponseComponent } from './components/response/response.component';
+import { ServerComponent } from './components/server/server.component';
+import { RootComponent } from './components/root/root.component';
+import { TagGroupComponent } from './components/tag-group/tag-group.component';
 
 
 const routes: Routes = [
-  { path: '', redirectTo: 'path', pathMatch: 'full' },
+  { path: '', redirectTo: 'root', pathMatch: 'full' },
+  { path: 'root', component: RootComponent },
+  { path: 'server', component: ServerComponent },
+  { path: 'tag-group', component: TagGroupComponent },
   { path: 'path', component: PathComponent },
   { path: 'param', component: ParamComponent },
   { path: 'response', component: ResponseComponent }
