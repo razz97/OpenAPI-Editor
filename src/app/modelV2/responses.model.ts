@@ -1,5 +1,6 @@
 import { Content } from './content.model';
 import { Links } from './misc.model';
+import { Headers } from './parameter.model';
 
 export class Responses {
     public default: Response;
@@ -8,6 +9,6 @@ export class Responses {
 export class Response {
     public description: string;
     public headers: Headers;
-    public content: Content;
+    public content: Content = new Content();
     public links: Links;
 }

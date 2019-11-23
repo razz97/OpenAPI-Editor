@@ -1,5 +1,10 @@
+<button mat-button color="primary" data-toggle="modal" data-target="#modal" (click)="refresh()">Preview</button>
+<button mat-button color="primary" (click)="save()">Save</button>
 <mat-form-field>
     <input matInput placeholder="Api title" [(ngModel)]="root.info.title">
+</mat-form-field>
+<mat-form-field>
+    <input matInput placeholder="Description" [(ngModel)]="root.info.description">
 </mat-form-field>
 <mat-form-field>
     <input matInput placeholder="Contact name" [(ngModel)]="root.info.contact.name">
@@ -8,10 +13,13 @@
     <input matInput placeholder="Contact email" [(ngModel)]="root.info.contact.email">
 </mat-form-field>
 <mat-form-field>
-    <input matInput placeholder="Logo url" [(ngModel)]="root.info.logo">
+    <input matInput placeholder="Terms of service" [(ngModel)]="root.info.termsOfService">
 </mat-form-field>
 <mat-form-field>
-    <input matInput placeholder="Description" [(ngModel)]="root.info.description">
+    <input matInput placeholder="License name" [(ngModel)]="root.info.license.name">
+</mat-form-field>
+<mat-form-field>
+    <input matInput placeholder="License url" [(ngModel)]="root.info.license.url">
 </mat-form-field>
 <p>
     Servers
@@ -22,11 +30,12 @@
 <div class="list-group">
     <div class="list-group-item" *ngFor="let server of root.servers">
         {{server.url ? server.url : 'New server' }}
-        <button mat-button color="warn" (click)="editServer(server)"><i class="material-icons">edit</i></button>
+        <button mat-button color="primary" (click)="editServer(server)"><i class="material-icons">edit</i></button>
         <button mat-button color="warn" (click)="removeServer(server)"><i class="material-icons">clear</i></button>
     </div>
 </div>
-<p>
+<!-- Implement this when all basic openapi spec is ready -->
+<!-- <p>
     Tag groups
     <button mat-button color="primary" (click)="addGroup()">
         <i class="material-icons">add</i>
@@ -38,17 +47,31 @@
         <button mat-button color="primary" (click)="editGroup(group)" ><i class="material-icons">edit</i></button>
         <button mat-button color="warn" (click)="removeGroup(group)"><i class="material-icons">clear</i></button>
     </div>
-</div>
-<p>
+</div> -->
+<p> 
     Paths
     <button mat-button color="primary" (click)="addPath()">
         <i class="material-icons">add</i>
     </button>
 </p>
 <div class="list-group">
-    <div class="list-group-item" *ngFor="let path of root.paths">
-        {{path.path ? path.path : 'New path' }}
+    <div class="list-group-item" *ngFor="let path of root.paths | keyvalue">
+        {{path.key ? path.key : 'New path' }}
         <button mat-button color="primary" (click)="editPath(path)" ><i class="material-icons">edit</i></button>
         <button mat-button color="warn" (click)="removePath(path)"><i class="material-icons">clear</i></button>
+    </div>
+</div>
+
+<!-- Preview modal -->
+<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog mw-100 w-90" role="document">
+        <div class="modal-content">
+            <div class="modal-body" #redoc>
+                <redoc></redoc>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
     </div>
 </div>

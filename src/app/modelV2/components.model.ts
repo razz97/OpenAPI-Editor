@@ -1,17 +1,17 @@
 import { Schemas } from './schema.model';
 import { Responses } from './responses.model';
-import { Parameters } from './parameter.model';
-import { Examples, Headers, Links } from './misc.model';
+import { Parameters, Headers } from './parameter.model';
+import { Examples, Links } from './misc.model';
 import { RequestBodies } from './requestbody.model';
 import { SecuritySchemes } from './security.model';
 
 export class Components {
-    public schemas: Schemas;
-    public responses: Responses;
-    public parameters: Parameters;
-    public examples: Examples;
-    public requestBodies: RequestBodies;
-    public headers: Headers;
-    public securitySchemes: SecuritySchemes;
-    public links: Links;
+    public schemas: Schemas = new Schemas();
+    public responses: Responses = new Responses();
+    public parameters: Parameters = new Parameters();
+    public examples: Examples = new Examples();
+    public requestBodies: RequestBodies = new RequestBodies();
+    public headers: Headers = new Headers();
+    public securitySchemes: SecuritySchemes = new SecuritySchemes();
+    public links: Links = new Links();
 }

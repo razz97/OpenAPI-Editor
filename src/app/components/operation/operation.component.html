@@ -1,0 +1,33 @@
+<mat-form-field>
+    <input matInput placeholder="Summary" [(ngModel)]="operation.value.summary">
+</mat-form-field>
+<mat-form-field>
+    <input matInput placeholder="Description" [(ngModel)]="operation.value.description">
+</mat-form-field>
+<mat-slide-toggle [(ngModel)]="operation.value.deprecated">Deprecated</mat-slide-toggle>
+<p>
+    Parameters
+    <button mat-button color="primary" (click)="addParam()">
+        <i class="material-icons">add</i>
+    </button>
+</p>
+<div class="list-group" id="list-params">
+    <div class="list-group-item" *ngFor="let param of operation.value.parameters">
+        {{param.name ? param.name : 'New param' }}
+        <button mat-button color="primary" (click)="editParam(param)"><i class="material-icons">edit</i></button>
+        <button mat-button color="warn" (click)="removeParam(param)"><i class="material-icons">clear</i></button>
+    </div>
+</div>
+<p>
+    Responses
+    <button mat-button color="primary" (click)="addResponse()" id="addResponse">
+        <i class="material-icons">add</i>
+    </button>
+</p>
+<div class="list-group" id="list-responses">
+    <div class="list-group-item" *ngFor="let response of operation.value.responses | keyvalue">
+        {{response.key ? response.key : 'New response' }}
+        <button mat-button color="primary" (click)="editResponse(response.value)"><i class="material-icons">edit</i></button>
+        <button mat-button color="warn" (click)="removeResponse(response.value)"><i class="material-icons">clear</i></button>
+    </div>
+</div>

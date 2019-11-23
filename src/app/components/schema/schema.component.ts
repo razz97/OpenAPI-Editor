@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, ViewChild, QueryList, EventEmitter } from '@angular/core';
-import { Schema, SchemaType } from '../../model/Schema';
-import { Property } from '../../model/Property';
+import { SchemaType } from '../../model/Schema';
+import { Schema } from 'src/app/modelV2/schema.model';
 
 @Component({
   selector: 'schemaform',
@@ -34,11 +34,11 @@ export class SchemaComponent implements OnInit {
         break;
       case "object":
         this.removeItems();
-        this.schema.properties = [new Property()];
+        // this.schema.properties = [new Schema()];
         break;
       case "array":
         this.removeProperties();
-        this.schema.items = new Schema();
+        // this.schema.items = new Schema();
         break;
     }
   }
@@ -49,19 +49,19 @@ export class SchemaComponent implements OnInit {
   }
 
   removeProperties() {
-    this.schema.properties = undefined;
+    // this.schema.properties = undefined;
   }
 
   removeItems() {
-    this.schema.items = undefined;
+    // this.schema.items = undefined;
   }
 
   addProperty() {
-    this.schema.properties.push(new Property());
+    // this.schema.properties.push(new Schema());
   }
 
-  removeProperty(property: Property) {
-    this.schema.properties.splice(this.schema.properties.indexOf(property), 1);
+  removeProperty(property: Schema) {
+    // this.schema.properties.splice(this.schema.properties.indexOf(property), 1);
   }
 
   

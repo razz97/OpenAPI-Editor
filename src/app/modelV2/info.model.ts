@@ -2,8 +2,8 @@ export class Info {
     public title: string;
     public description: string;
     public termsOfService: string; 
-    public contact: Contact;
-    public license: License;
+    public contact: Contact = new Contact();
+    public license: License = new License();
     public version: string;
 }
 export class Contact {

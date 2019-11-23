@@ -1,67 +1,28 @@
-<mat-form-field class="w-75">
-    <input matInput placeholder="Path" [(ngModel)]="path.path">
+<input  placeholder="Path" [ngModel]="pathName" (ngModelChange)="keyChanged($event)">
+<button mat-button color="primary" (click)="back()"><i class="material-icons">keyboard_backspace</i></button>
+<mat-form-field>
+    <input matInput placeholder="Summary" [(ngModel)]="path.summary">
 </mat-form-field>
-<button mat-button color="primary" data-toggle="modal" data-target="#modal" (click)="refresh()">Preview</button>
-<button mat-button color="primary" (click)="save()">Save</button>
+<mat-form-field>
+    <input matInput placeholder="Description" [(ngModel)]="path.description">
+</mat-form-field>
 <!-- Add operation -->
 <mat-form-field class="w-75">
     <mat-select placeholder="Method" [(value)]="methodSelected">
         <mat-option *ngFor="let method of methods" value="{{method}}">{{method}}</mat-option>
     </mat-select>
 </mat-form-field>
-<button mat-button color="primary" (click)="addOperation()" [disabled]="!methods.length"><i class="material-icons">add</i></button>
+<button mat-button color="primary" (click)="addOperation()" [disabled]="!methods.length"><i
+        class="material-icons">add</i></button>
 <!-- Operations accordion -->
 <mat-accordion>
-    <mat-expansion-panel *ngFor="let op of path.operations">
+    <mat-expansion-panel *ngFor="let op of operations">
         <mat-expansion-panel-header>
             <p>{{op.method}}
-                <button mat-button color="warn" (click)="removeOperation(op)"><i class="material-icons">clear</i></button>
+                <button mat-button color="warn" (click)="removeOperation(op)"><i
+                        class="material-icons">clear</i></button>
             </p>
         </mat-expansion-panel-header>
-        <mat-form-field>
-            <input matInput placeholder="Description" [(ngModel)]="op.description">
-        </mat-form-field>
-        <mat-form-field>
-            <input matInput placeholder="Summary" [(ngModel)]="op.summary">
-        </mat-form-field>
-        <p>
-            Params
-            <button mat-button color="primary" (click)="addParam(op.params)">
-                <i class="material-icons">add</i>
-            </button>
-        </p>
-        <div class="list-group" id="list-params">
-            <div class="list-group-item" *ngFor="let param of op.params">
-                {{param.name ? param.name : 'New param' }}
-                <button mat-button color="primary" (click)="editParam(param)" ><i class="material-icons">edit</i></button>
-                <button mat-button color="warn" (click)="removeParam(op.params, param)"><i class="material-icons">clear</i></button>
-            </div>
-        </div>
-        <p>
-            Responses
-            <button mat-button color="primary" (click)="addResponse(op.responses)" id="addResponse">
-                <i class="material-icons">add</i>
-            </button>
-        </p>
-        <div class="list-group" id="list-responses">
-            <div class="list-group-item" *ngFor="let response of op.responses">
-                {{response.status ? response.status : 'New response' }}
-                <button mat-button color="primary" (click)="editResponse(response)"><i class="material-icons">edit</i></button>
-                <button mat-button color="warn" (click)="removeResponse(op.responses, response)"><i class="material-icons">clear</i></button>
-            </div>
-        </div>
+        <operation [operation]="op"></operation>
     </mat-expansion-panel>
 </mat-accordion>
-<!-- Preview modal -->
-<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
-    <div class="modal-dialog mw-100 w-90" role="document">
-        <div class="modal-content">
-            <div class="modal-body" #redoc>
-                <redoc></redoc>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>

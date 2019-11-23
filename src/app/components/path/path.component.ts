@@ -1,14 +1,12 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { Path } from '../../model/Path';
-import { Operation, Method } from '../../model/Operation';
 import { DocumentService } from '../../services/document.service';
 import { Remote } from 'electron';
-import { Param } from 'src/app/model/Param';
 import { Router } from '@angular/router';
 import { DataService } from 'src/app/services/data.service';
-import { Response } from 'src/app/model/Response';
+import { Path } from 'src/app/modelV2/path.model';
+import { Method } from 'src/app/model/Operation';
+import { Operation } from 'src/app/modelV2/operation.model';
 
-declare const Redoc: any;
 
 @Component({
   selector: 'app-editor',
@@ -22,6 +20,11 @@ export class PathComponent {
     private dataService: DataService
   ) {
     this.remote = (<any>window).require('electron').remote;
+    dataService.observePath(path => {
+      this.path = path.value;
+      this.originalKey = path.key;
+      this.pathName = path.key;
+    })
   }
 
   @ViewChild('redoc', { static: true }) redoc: ElementRef;
@@ -32,64 +35,36 @@ export class PathComponent {
 
   methodSelected: Method = this.methods[0];
 
-  path: Path = new Path();
+  path: Path;
 
-  removeOperation(operation: Operation) {
-    this.methods.push(operation.method);
-    if (!this.methodSelected) {
-      this.methodSelected = operation.method;
-    }
-    this.path.operations.splice(this.path.operations.indexOf(operation), 1);
-  }
+  originalKey: string;
 
-  save() {
-    const folder = this.remote.dialog.showSaveDialogSync({});
-    if (folder) {
-      this.remote.require('fs').appendFileSync(folder, this.documentService.buildDocument(this.path).toString());
-    }
-  }
+  pathName: string;
 
-  addParam(params: Param[]) {
-    params.push(new Param());
-  }
+  operations: {key: string, value: Operation}[] = [];
 
-  removeParam(params: Param[], param: Param) {
-    params.splice(params.indexOf(param), 1);
-  }
 
-  editParam(param: Param) {
-    this.router.navigateByUrl('param');
-    this.dataService.sendParam(param);
-  }
-
-  addResponse(responses: Response[]) {
-    responses.push(new Response());
-  }
-
-  removeResponse(responses: Response[],response: Response) {
-    responses.splice(responses.indexOf(response), 1);
-  }
-
-  editResponse(response: Response) {
-    this.router.navigateByUrl('response');
-    this.dataService.sendResponse(response);
+  removeOperation(operation: { key: Method, value: Operation }) {
+    this.methods.push(operation.key);
+    this.path[operation.key] = undefined;
+    this.operations.splice(this.operations.indexOf(operation), 1);
   }
 
   addOperation() {
-    const tmp = this.methodSelected;
+    const tmp = this.methodSelected.toLowerCase();
     this.methods.splice(this.methods.indexOf(this.methodSelected), 1);
     this.methodSelected = this.methods[0];
-    this.path.operations.push(new Operation(tmp));
+    this.path[tmp] = new Operation();
+    this.operations.push({key: '', value: this.path[tmp]});
   }
 
-  refresh() {
-    Redoc.init(
-      this.documentService.buildDocument(this.path).toJSON(),
-      {
-        pathInMiddlePanel: true,
-        hideDownloadButton: true
-      },
-      this.redoc.nativeElement);
+  back() {
+    this.router.navigateByUrl('root');
+  }
+
+  keyChanged(event) {
+    this.dataService.sendPath({key: event, value: this.path, lastKey: this.originalKey});
+    this.originalKey = event;
   }
 
 }

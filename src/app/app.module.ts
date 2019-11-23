@@ -18,6 +18,7 @@ import { ResponseComponent } from './components/response/response.component';
 import { RootComponent } from './components/root/root.component';
 import { ServerComponent } from './components/server/server.component';
 import { TagGroupComponent } from './components/tag-group/tag-group.component';
+import { OperationComponent } from './components/operation/operation.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { TagGroupComponent } from './components/tag-group/tag-group.component';
     ResponseComponent,
     RootComponent,
     ServerComponent,
-    TagGroupComponent
+    TagGroupComponent,
+    OperationComponent
   ],
   imports: [
     AppRoutingModule,

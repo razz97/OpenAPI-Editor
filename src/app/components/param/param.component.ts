@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Param, ParamLocation } from '../../model/Param';
 import {  Router } from '@angular/router';
 import { DataService } from '../../services/data.service';
+import { Parameter } from 'src/app/modelV2/parameter.model';
 
 @Component({
   selector: 'param',
@@ -18,7 +19,7 @@ export class ParamComponent {
 
   public paramLocations: ParamLocation[] = ["Path", "Query", "Header", "Cookie"];
 
-  public param: Param = new Param();
+  public param: Parameter = new Parameter();
 
 
   back() {

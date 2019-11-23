@@ -5,15 +5,15 @@ import { Responses } from './responses.model';
 import { Server } from './server.model';
 
 export class Operation {
-    public tags: string[];
+    public tags: string[]; //
     public summary: string;
     public description: string;
-    public externalDocs: ExternalDocs;
-    public operationId: string;
-    public parameters: Parameter[];
-    public requestBody: RequestBody;
-    public responses: Responses;
+    public externalDocs: ExternalDocs; //
+    public operationId: string; //
+    public parameters: Parameter[] = [];
+    public requestBody: RequestBody; //
+    public responses: Responses = new Responses();
     public deprecated: boolean;
-    public security: Security;
-    public servers: Server[];
+    public security: Security; //
+    public servers: Server[]; //
 }

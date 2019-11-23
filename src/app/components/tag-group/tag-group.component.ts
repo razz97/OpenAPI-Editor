@@ -13,7 +13,7 @@ export class TagGroupComponent {
     dataService: DataService,
     private router: Router
   ) { 
-    dataService.observeTagGroup(tagGroup => this.tagGroup = tagGroup);
+    //dataService.observeTagGroup(tagGroup => this.tagGroup = tagGroup);
   }
 
   tagGroup: TagGroup = new TagGroup();

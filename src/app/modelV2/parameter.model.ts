@@ -14,9 +14,14 @@ export class Parameter {
     public allowReserved: boolean;
     public schema: Schema;
     public example: any;
-    public examples: Examples;
+    public examples: Examples = new Examples();
     public content: Content;
 }
 export class Parameters {
     [key: string]: Parameter;
 }
+
+export class Headers {
+    [key: string]: Header;
+}
+export class Header extends Parameter {}

@@ -16,6 +16,6 @@ export class SecurityScheme {
 
     public type: string;
     public description: string;
-    public flows:
+    public flows: string;
 
 }

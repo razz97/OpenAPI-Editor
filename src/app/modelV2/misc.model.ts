@@ -1,14 +1,10 @@
-import { Parameter } from './parameter.model';
 import { Server } from './server.model';
 
-export class Headers {
-    [key: string]: Header;
-}
-export class Header extends Parameter {}
+
 export class Tag {
     public name: string;
     public description: string;
-    public externalDocs: ExternalDocs;
+    public externalDocs: ExternalDocs = new ExternalDocs();
 }
 
 
@@ -33,7 +29,7 @@ export class Links {
 export class Link {
     public operationId: string;
     public description: string;
-    public server: Server;
+    public server: Server = new Server();
 }
 export class Security {
     [key: string]: string[]

@@ -1,15 +1,16 @@
 <button mat-button color="primary" (click)="back()"><i class="material-icons">keyboard_backspace</i></button>
 <mat-form-field>
-    <mat-select placeholder="Type" [(value)]="response.content">
+    <mat-select placeholder="Type" [(value)]="contentType" (selectionChange)="typeChanged($event)">
         <mat-option *ngFor="let type of contentTypes" value="{{type}}">
             {{type}}
         </mat-option>
     </mat-select>
 </mat-form-field>
 <mat-form-field>
-    <input matInput placeholder="Status code" [(ngModel)]="response.status">
+    <input matInput placeholder="Status code" [(ngModel)]="status">
 </mat-form-field>
 <mat-form-field>
     <input matInput placeholder="Description" [(ngModel)]="response.description">
 </mat-form-field>
-<schemaform [schema]="response.schema" [isParam]="false"></schemaform>
+
+<schemaform *ngIf="response.content[this.contentType]" [schema]="response.content[this.contentType].schema" [isParam]="false"></schemaform>

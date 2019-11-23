@@ -14,7 +14,7 @@
 </mat-form-field>
 <mat-slide-toggle *ngIf="!isParam" [(ngModel)]="schema.nullable">Nullable</mat-slide-toggle>
 <!-- If type is object display properties -->
-<div *ngIf="schema.properties !== undefined && schema.properties !== null">
+<!-- <div *ngIf="schema.properties !== undefined && schema.properties !== null">
     Properties <button color="primary" mat-button><i (click)="addProperty()" class="material-icons">add</i></button>
     <div class="list-group">
         <div class="list-group-item" *ngFor="let property of schema.properties">
@@ -25,13 +25,13 @@
             <button mat-button (click)="removeProperty(property)" color="warn"><i class="material-icons">clear</i></button>
         </div>
     </div>
-</div>
+</div> -->
 <!-- If type is array display schema -->
-<div *ngIf="schema.items !== undefined && schema.items !== null">
+<!-- <div *ngIf="schema.items !== undefined && schema.items !== null">
     Array Schema
     <div class="list-group">
         <div class="list-group-item">
             <schemaform [schema]="schema.items" [isParam]="isParam"></schemaform>
         </div>
     </div>
-</div>
+</div> -->

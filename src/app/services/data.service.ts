@@ -1,34 +1,33 @@
 import { BehaviorSubject } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { Param } from '../model/Param';
-import { Response } from '../model/Response';
-import { Server } from '../model/Server';
-import { TagGroup } from '../model/TagGroup';
-import { Path } from '../model/Path';
+import { Parameter } from '../modelV2/parameter.model';
+import { Server } from '../modelV2/server.model';
+import { Path } from '../modelV2/path.model';
+import { Response } from '../modelV2/responses.model';
 
 
 @Injectable()
 export class DataService {
 
-    private paramObservable = new BehaviorSubject(new Param());
-    private responseObservable = new BehaviorSubject(new Response());
-    private serverObservable = new BehaviorSubject(new Server());
-    private tagGroupObservable = new BehaviorSubject(new TagGroup());
-    private pathObservable = new BehaviorSubject(new Path());
+    private paramObservable = new BehaviorSubject<Parameter>(null);
+    private responseObservable = new BehaviorSubject<{ key: string, value: Response}>(null);
+    private serverObservable = new BehaviorSubject<Server>(null);
+    // private tagGroupObservable = new BehaviorSubject(new TagGroup());
+    private pathObservable = new BehaviorSubject<{ key: string, value: Path, lastKey: string}>(null);
   
-    observeParam(change: (param: Param) => void) {
+    observeParam(change: (param: Parameter) => void) {
         this.paramObservable.subscribe(change);
     }
 
-    sendParam(param: Param) {
+    sendParam(param: Parameter) {
       this.paramObservable.next(param);
     }
 
-    observeResponse(change: (response: Response) => void) {
+    observeResponse(change: (response: { key: string, value: Response}) => void) {
         this.responseObservable.subscribe(change);
     }
 
-    sendResponse(response: Response) {
+    sendResponse(response: { key: string, value: Response}) {
       this.responseObservable.next(response);
     }
 
@@ -40,20 +39,23 @@ export class DataService {
       this.serverObservable.next(server);
     }
 
-    observeTagGroup(change: (tagGroup: TagGroup) => void) {
-      this.tagGroupObservable.subscribe(change);
-    }
+    // observeTagGroup(change: (tagGroup: TagGroup) => void) {
+    //   this.tagGroupObservable.subscribe(change);
+    // }
 
-    sendTagGroup(tagGroup: TagGroup) {
-      this.tagGroupObservable.next(tagGroup);
-    }
+    // sendTagGroup(tagGroup: TagGroup) {
+    //   this.tagGroupObservable.next(tagGroup);
+    // }
 
-    observePath(change: (path: Path) => void) {
+    observePath(change: (path: { key: string, value: Path, lastKey: string}) => void) {
       this.pathObservable.subscribe(change);
     }
 
-    sendPath(path: Path) {
+    sendPath(path: { key: string, value: Path, lastKey: string}) {
       this.pathObservable.next(path);
     }
 
+    sendKeyPathChange() {
+
+    }
 }
