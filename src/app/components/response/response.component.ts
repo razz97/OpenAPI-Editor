@@ -1,9 +1,9 @@
-import { Component, ElementRef } from '@angular/core';
-import { DataService } from '../../services/data.service';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { Response } from 'src/app/modelV2/responses.model';
-import { ContentType } from 'src/app/model/Response';
-import { MediaType } from 'src/app/modelV2/content.model';
+
+import { DataService } from '../../services/data.service';
+import { AppResponse } from 'src/app/modelV2/app-model/AppResponse.model';
+import { AppMediaType } from 'src/app/modelV2/app-model/AppMediaType.model';
 
 @Component({
   selector: 'response',
@@ -11,27 +11,25 @@ import { MediaType } from 'src/app/modelV2/content.model';
 })
 export class ResponseComponent {
 
-  constructor(
-    dataService: DataService,
-    private router: Router
-  ) {
-    dataService.observeResponse(resp => {
-      this.response = resp.value;
-      this.status = resp.key;
-    });
+  constructor(dataService: DataService, private router: Router) {
+    dataService.observeResponse(resp => this.response = resp);
   }
 
-  contentType: ContentType;
+  contentTypes: string[] = ["application/json", "text/plain", "text/html", "application/xml"];
+  selectedContentType: string = this.contentTypes[0];
 
-  public contentTypes: ContentType[] = ["application/json", "text/plain", "text/html", "application/xml"];
+  response: AppResponse = new AppResponse();
 
-  public response: Response = new Response();
-  public status: string;
+  removeMediaType(mediaType: AppMediaType) {
+    this.response.content.splice(this.response.content.indexOf(mediaType), 1);
+    this.contentTypes.push(mediaType.name);
+  }
 
-  typeChanged(event) {
-    console.log(event.value);
-    this.contentType = event.value;
-    this.response.content[event.value] = new MediaType();
+  addMediaType() {
+    const contentType = this.selectedContentType;
+    this.contentTypes.splice(this.contentTypes.indexOf(contentType), 1);
+    this.selectedContentType = this.contentTypes[0];
+    this.response.content.push(new AppMediaType(contentType));
   }
 
   back() {

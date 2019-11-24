@@ -4,6 +4,9 @@
     <input matInput placeholder="Api title" [(ngModel)]="root.info.title">
 </mat-form-field>
 <mat-form-field>
+    <input matInput placeholder="Api version" [(ngModel)]="root.info.version">
+</mat-form-field>
+<mat-form-field>
     <input matInput placeholder="Description" [(ngModel)]="root.info.description">
 </mat-form-field>
 <mat-form-field>
@@ -55,8 +58,8 @@
     </button>
 </p>
 <div class="list-group">
-    <div class="list-group-item" *ngFor="let path of root.paths | keyvalue">
-        {{path.key ? path.key : 'New path' }}
+    <div class="list-group-item" *ngFor="let path of root.paths">
+        {{path.name ? path.name : 'New path' }}
         <button mat-button color="primary" (click)="editPath(path)" ><i class="material-icons">edit</i></button>
         <button mat-button color="warn" (click)="removePath(path)"><i class="material-icons">clear</i></button>
     </div>

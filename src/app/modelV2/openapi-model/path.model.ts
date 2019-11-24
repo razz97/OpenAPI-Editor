@@ -13,6 +13,10 @@ export class Path {
     public head: Operation;
     public patch: Operation;
     public trace: Operation;
-    public servers: Server[]; //
-    public parameters: Parameter[]; //
+    public servers: Server[] = undefined; //
+    public parameters: Parameter[] = undefined; //
+}
+
+export class Paths {
+    [key: string]: Path;
 }

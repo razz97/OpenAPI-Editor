@@ -1,16 +1,25 @@
 <button mat-button color="primary" (click)="back()"><i class="material-icons">keyboard_backspace</i></button>
 <mat-form-field>
-    <mat-select placeholder="Type" [(value)]="contentType" (selectionChange)="typeChanged($event)">
+    <input matInput placeholder="Status code" [(ngModel)]="response.status">
+</mat-form-field>
+<mat-form-field>
+    <input matInput placeholder="Description" [(ngModel)]="response.description">
+</mat-form-field>
+<mat-form-field>
+    <mat-select placeholder="Type" [(value)]="selectedContentType">
         <mat-option *ngFor="let type of contentTypes" value="{{type}}">
             {{type}}
         </mat-option>
     </mat-select>
 </mat-form-field>
-<mat-form-field>
-    <input matInput placeholder="Status code" [(ngModel)]="status">
-</mat-form-field>
-<mat-form-field>
-    <input matInput placeholder="Description" [(ngModel)]="response.description">
-</mat-form-field>
-
-<schemaform *ngIf="response.content[this.contentType]" [schema]="response.content[this.contentType].schema" [isParam]="false"></schemaform>
+<button mat-button color="primary" (click)="addMediaType()" [disabled]="!contentTypes.length"><i
+        class="material-icons">add</i></button>
+<div class="list-group">
+    <div class="list-group-item" *ngFor="let mediaType of response.content">
+        <p>{{mediaType.name}}
+            <button mat-button color="warn" (click)="removeMediaType(mediaType)"><i
+                    class="material-icons">clear</i></button>
+        </p>
+        <schemaform [schema]="mediaType.schema" [isParam]="false"></schemaform>
+    </div>
+</div>

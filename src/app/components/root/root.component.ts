@@ -1,29 +1,24 @@
-import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
-import { DataService } from 'src/app/services/data.service';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { Root } from 'src/app/modelV2/root.model';
-import { Server } from 'src/app/modelV2/server.model';
-import { Path } from 'src/app/modelV2/path.model';
-import { Remote } from 'electron';
 import { createNode, Document } from 'yaml';
+import { Remote } from 'electron';
+
+import { DataService } from 'src/app/services/data.service';
+import { Server } from 'src/app/modelV2/openapi-model/server.model';
+import { AppRoot } from 'src/app/modelV2/app-model/AppRoot.model';
+import { AppPath } from 'src/app/modelV2/app-model/AppPath.model';
+import { Converter } from 'src/app/modelV2/converter';
 
 declare const Redoc: any;
 
 @Component({
-  selector: 'lala-root',
+  selector: 'rootform',
   templateUrl: './root.component.html'
 })
 export class RootComponent {
 
   constructor(private router: Router, private dataService: DataService) {
     this.remote = (<any>window).require('electron').remote;
-    dataService.observePath(path => {
-      if (path && path.lastKey && !this.root.paths.has(path.key)) {
-        console.log('updated')
-        this.root.paths.set(path.key, path.value);
-        this.root.paths.delete(path.lastKey);
-      }
-    })
   }
 
   @ViewChild('redoc', { static: true }) 
@@ -31,10 +26,8 @@ export class RootComponent {
 
   private remote: Remote;
 
-  root: Root = new Root();
+  root: AppRoot = new AppRoot();
   
-
-
   addServer() {
     this.root.servers.push(new Server());
   }
@@ -49,16 +42,16 @@ export class RootComponent {
   }
 
   addPath() {
-    this.root.paths.set('Path ' + (this.root.paths.size + 1), new Path());
+    this.root.paths.push(new AppPath());
   }
 
-  editPath(path: { key: string, value: Path, lastKey: string }) {
+  editPath(path: AppPath) {
     this.dataService.sendPath(path);
     this.router.navigateByUrl('path');
   }
 
-  removePath(path: { key: string, value: Path }) {
-    this.root.paths.delete(path.key);
+  removePath(path: AppPath) {
+    this.root.paths.splice(this.root.paths.indexOf(path), 1);
   }
 
   // addGroup() {
@@ -77,16 +70,16 @@ export class RootComponent {
   save() {
     const folder = this.remote.dialog.showSaveDialogSync({});
     if (folder) {
-      this.remote.require('fs').appendFileSync(folder, createNode(this.root).toString());
+      this.remote.require('fs').appendFileSync(folder, createNode(Converter.fromAppRoot(this.root)).toString());
     }
     const document = new Document();
-    document.contents = createNode(this.root);
+    document.contents = createNode(Converter.fromAppRoot(this.root));
     console.log(document.toString());
   }
 
   refresh() {
     const document = new Document();
-    document.contents = createNode(this.root);
+    document.contents = createNode(Converter.fromAppRoot(this.root));
     Redoc.init(
       document.toJSON(),
       {

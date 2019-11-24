@@ -7,8 +7,8 @@ export class Content {
 export class MediaType {
     public schema: Schema = new Schema();
     public example: any; //
-    public examples: Examples; //
-    public encoding: Encodings; //
+    public examples: Examples = undefined; //
+    public encoding: Encodings = undefined; //
 }
 export class Encodings {
     [key: string]: Encoding;

@@ -3,12 +3,12 @@ import { Links } from './misc.model';
 import { Headers } from './parameter.model';
 
 export class Responses {
-    public default: Response;
+    public default: Response = new Response();
     [key: string]: Response;
 }
 export class Response {
     public description: string;
-    public headers: Headers;
-    public content: Content = new Content();
-    public links: Links;
+    public headers: Headers = undefined;
+    public content: Content = undefined;
+    public links: Links = undefined;
 }

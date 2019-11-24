@@ -1,7 +1,7 @@
 export class Server {
     public url: string;
     public description: string;
-    public variables: Variables; //
+    public variables: Variables = undefined; //
 }
 export class Variables {
     [key: string]: Variable;

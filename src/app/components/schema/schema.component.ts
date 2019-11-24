@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, ViewChild, QueryList, EventEmitter } from '@angular/core';
 import { SchemaType } from '../../model/Schema';
-import { Schema } from 'src/app/modelV2/schema.model';
+import { Schema } from 'src/app/modelV2/openapi-model/schema.model';
 
 @Component({
   selector: 'schemaform',
@@ -18,13 +18,13 @@ export class SchemaComponent implements OnInit {
   private schemaTypesParam: SchemaType[] = ["string", "number", "boolean"];
   public schemaTypes: SchemaType[] = ["string", "array", "object", "number", "boolean"];
 
-  @Input() 
+  @Input()
   public schema: Schema;
   @Input()
   public isParam: boolean;
 
   typeChanged() {
-    switch(this.schema.type) {
+    switch (this.schema.type) {
       case "string":
       case "number":
         this.removeNestedSchemas();
@@ -34,11 +34,11 @@ export class SchemaComponent implements OnInit {
         break;
       case "object":
         this.removeItems();
-        // this.schema.properties = [new Schema()];
+        this.schema.properties = [new Schema()];
         break;
       case "array":
         this.removeProperties();
-        // this.schema.items = new Schema();
+        this.schema.items = new Schema();
         break;
     }
   }
@@ -49,20 +49,20 @@ export class SchemaComponent implements OnInit {
   }
 
   removeProperties() {
-    // this.schema.properties = undefined;
+    this.schema.properties = undefined;
   }
 
   removeItems() {
-    // this.schema.items = undefined;
+    this.schema.items = undefined;
   }
 
   addProperty() {
-    // this.schema.properties.push(new Schema());
+    this.schema.properties.push(new Schema());
   }
 
   removeProperty(property: Schema) {
-    // this.schema.properties.splice(this.schema.properties.indexOf(property), 1);
+    this.schema.properties.splice(this.schema.properties.indexOf(property), 1);
   }
 
-  
+
 }

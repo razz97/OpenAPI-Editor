@@ -4,7 +4,7 @@ import { Operation } from '../model/Operation';
 import { Response } from '../model/Response';
 import { Schema } from '../model/Schema';
 import { Property } from '../model/Property';
-import { Path } from '../modelV2/path.model';
+import { Path } from '../modelV2/openapi-model/path.model';
 
 @Injectable()
 export class DocumentService {

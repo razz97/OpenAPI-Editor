@@ -12,10 +12,10 @@ export class Parameter {
     public style: string;
     public explode: boolean;
     public allowReserved: boolean;
-    public schema: Schema;
+    public schema: Schema = new Schema();
     public example: any;
-    public examples: Examples = new Examples();
-    public content: Content;
+    public examples: Examples = undefined;
+    public content: Content = undefined;
 }
 export class Parameters {
     [key: string]: Parameter;

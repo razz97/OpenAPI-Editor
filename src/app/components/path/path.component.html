@@ -1,5 +1,7 @@
-<input  placeholder="Path" [ngModel]="pathName" (ngModelChange)="keyChanged($event)">
 <button mat-button color="primary" (click)="back()"><i class="material-icons">keyboard_backspace</i></button>
+<mat-form-field>
+<input matInput placeholder="Path" [(ngModel)]="path.name">
+</mat-form-field>
 <mat-form-field>
     <input matInput placeholder="Summary" [(ngModel)]="path.summary">
 </mat-form-field>
@@ -16,7 +18,7 @@
         class="material-icons">add</i></button>
 <!-- Operations accordion -->
 <mat-accordion>
-    <mat-expansion-panel *ngFor="let op of operations">
+    <mat-expansion-panel *ngFor="let op of path.operations">
         <mat-expansion-panel-header>
             <p>{{op.method}}
                 <button mat-button color="warn" (click)="removeOperation(op)"><i

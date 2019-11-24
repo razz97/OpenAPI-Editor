@@ -1,9 +1,10 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { Parameter } from 'src/app/modelV2/parameter.model';
-import { DataService } from 'src/app/services/data.service';
+import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
-import { Response } from 'src/app/modelV2/responses.model';
-import { Operation } from 'src/app/modelV2/operation.model';
+
+import { DataService } from 'src/app/services/data.service';
+import { Parameter } from 'src/app/modelV2/openapi-model/parameter.model';
+import { AppOperation } from 'src/app/modelV2/app-model/AppOperation.model';
+import { AppResponse } from 'src/app/modelV2/app-model/AppResponse.model';
 
 @Component({
   selector: 'operation',
@@ -17,14 +18,14 @@ export class OperationComponent {
   ) { }
 
   @Input()
-  operation: { key: string, value: Operation };
+  operation: AppOperation;
 
   addParam() {
-    this.operation.value.parameters.push(new Parameter());
+    this.operation.parameters.push(new Parameter());
   }
 
   removeParam(param: Parameter) {
-    this.operation.value.parameters.splice(this.operation.value.parameters.indexOf(param), 1);
+    this.operation.parameters.splice(this.operation.parameters.indexOf(param), 1);
   }
 
   editParam(param: Parameter) {
@@ -33,16 +34,16 @@ export class OperationComponent {
   }
 
   addResponse() {
-    this.operation.value.responses['200'] = new Response();
+    this.operation.responses.push(new AppResponse());
   }
 
-  removeResponse(response: Response) {
-    this.operation.value.responses['200'] = undefined;
+  removeResponse(response: AppResponse) {
+    this.operation.responses.splice(this.operation.responses.indexOf(response), 1);
   }
 
-  editResponse(response: Response) {
+  editResponse(response: AppResponse) {
     this.router.navigateByUrl('response');
-    this.dataService.sendResponse({key: '200', value: response});
+    this.dataService.sendResponse(response);
   }
   
 

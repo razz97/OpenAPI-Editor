@@ -1,10 +1,10 @@
 <mat-form-field>
-    <input matInput placeholder="Summary" [(ngModel)]="operation.value.summary">
+    <input matInput placeholder="Summary" [(ngModel)]="operation.summary">
 </mat-form-field>
 <mat-form-field>
-    <input matInput placeholder="Description" [(ngModel)]="operation.value.description">
+    <input matInput placeholder="Description" [(ngModel)]="operation.description">
 </mat-form-field>
-<mat-slide-toggle [(ngModel)]="operation.value.deprecated">Deprecated</mat-slide-toggle>
+<mat-slide-toggle [(ngModel)]="operation.deprecated">Deprecated</mat-slide-toggle>
 <p>
     Parameters
     <button mat-button color="primary" (click)="addParam()">
@@ -12,7 +12,7 @@
     </button>
 </p>
 <div class="list-group" id="list-params">
-    <div class="list-group-item" *ngFor="let param of operation.value.parameters">
+    <div class="list-group-item" *ngFor="let param of operation.parameters">
         {{param.name ? param.name : 'New param' }}
         <button mat-button color="primary" (click)="editParam(param)"><i class="material-icons">edit</i></button>
         <button mat-button color="warn" (click)="removeParam(param)"><i class="material-icons">clear</i></button>
@@ -25,9 +25,9 @@
     </button>
 </p>
 <div class="list-group" id="list-responses">
-    <div class="list-group-item" *ngFor="let response of operation.value.responses | keyvalue">
-        {{response.key ? response.key : 'New response' }}
-        <button mat-button color="primary" (click)="editResponse(response.value)"><i class="material-icons">edit</i></button>
-        <button mat-button color="warn" (click)="removeResponse(response.value)"><i class="material-icons">clear</i></button>
+    <div class="list-group-item" *ngFor="let response of operation.responses ">
+        {{response.status ? response.status : 'New response' }}
+        <button mat-button color="primary" (click)="editResponse(response)"><i class="material-icons">edit</i></button>
+        <button mat-button color="warn" (click)="removeResponse(response)"><i class="material-icons">clear</i></button>
     </div>
 </div>
