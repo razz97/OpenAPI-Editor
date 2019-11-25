@@ -29,11 +29,11 @@ export class Schema {
     public format: string;
     public default: any;
     public nullable: boolean;
-    public discriminator: Discriminator = undefined;
+    public discriminator: Discriminator;
     public readOnly: boolean;
     public writeOnly: boolean;
-    public xml: Xml = undefined;
-    public externalDocs: ExternalDocs = undefined;
+    public xml: Xml;
+    public externalDocs: ExternalDocs;
     public example: any;
     public deprecated: boolean;
 }
@@ -44,7 +44,7 @@ export class Schemas {
 
 export class Discriminator {
     public propertyName: string;
-    public mapping: Mapping = new Mapping();
+    public mapping: Mapping;
 }
 
 export class Mapping {

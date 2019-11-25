@@ -8,12 +8,12 @@ export class Operation {
     public tags: string[] = []; //
     public summary: string;
     public description: string;
-    public externalDocs: ExternalDocs = undefined; //
+    public externalDocs: ExternalDocs; //
     public operationId: string; //
     public parameters: Parameter[] = [];
-    public requestBody: RequestBody = undefined; //
+    public requestBody: RequestBody; //
     public responses: Responses = new Responses();
     public deprecated: boolean;
-    public security: Security = undefined; //
-    public servers: Server[] = undefined; //
+    public security: Security; //
+    public servers: Server[]; //
 }

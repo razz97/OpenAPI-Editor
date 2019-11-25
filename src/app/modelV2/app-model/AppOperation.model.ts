@@ -9,17 +9,17 @@ export class AppOperation {
 
     constructor(public method: string) {}
 
-    public tags: string[] = undefined; //
+    public tags: string[]; //
     public summary: string;
     public description: string;
-    public externalDocs: ExternalDocs = undefined; //
+    public externalDocs: ExternalDocs; //
     public operationId: string; //
     public parameters: Parameter[] = [];
-    public requestBody: RequestBody = undefined; //
+    public requestBody: RequestBody; //
     public responses: AppResponse[] = [];
     public deprecated: boolean;
-    public security: Security = undefined; //
-    public servers: Server[] = undefined; //
+    public security: Security; //
+    public servers: Server[]; //
 
     getKey(): string {
         return this.method;

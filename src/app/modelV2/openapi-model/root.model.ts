@@ -9,10 +9,10 @@ export class Root {
     public info: Info = new Info();     
     public servers: Server[] = [];
     public paths: Paths = new Paths();
-    public components: Components = undefined; //
-    public security: Security = undefined; //
-    public tags: Tag[] = undefined; //
-    public externalDocs: ExternalDocs = undefined; //
+    public components: Components; //
+    public security: Security; //
+    public tags: Tag[]; //
+    public externalDocs: ExternalDocs; //
 }
 
 

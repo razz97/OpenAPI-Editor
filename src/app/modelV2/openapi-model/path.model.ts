@@ -13,8 +13,8 @@ export class Path {
     public head: Operation;
     public patch: Operation;
     public trace: Operation;
-    public servers: Server[] = undefined; //
-    public parameters: Parameter[] = undefined; //
+    public servers: Server[]; //
+    public parameters: Parameter[]; //
 }
 
 export class Paths {

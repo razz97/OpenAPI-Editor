@@ -8,7 +8,7 @@ export class SecurityScheme {
     public in: string;
     public scheme: string;
     public bearerFormat: string;
-    public flows: OAuthFlows = new OAuthFlows();
+    public flows: OAuthFlows;
     public openIdConnectUrl: string;
 }
 export class OAuthFlows {

@@ -6,12 +6,12 @@ import { RequestBodies } from './requestbody.model';
 import { SecuritySchemes } from './security.model';
 
 export class Components {
-    public schemas: Schemas = new Schemas();
-    public responses: Responses = new Responses();
-    public parameters: Parameters = new Parameters();
-    public examples: Examples = new Examples();
-    public requestBodies: RequestBodies = new RequestBodies();
-    public headers: Headers = new Headers();
-    public securitySchemes: SecuritySchemes = new SecuritySchemes();
-    public links: Links = new Links();
+    public schemas: Schemas;
+    public responses: Responses;
+    public parameters: Parameters;
+    public examples: Examples;
+    public requestBodies: RequestBodies;
+    public headers: Headers;
+    public securitySchemes: SecuritySchemes;
+    public links: Links;
 }

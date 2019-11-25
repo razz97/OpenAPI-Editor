@@ -4,7 +4,7 @@ import { Server } from './server.model';
 export class Tag {
     public name: string;
     public description: string;
-    public externalDocs: ExternalDocs = new ExternalDocs();
+    public externalDocs: ExternalDocs;
 }
 
 

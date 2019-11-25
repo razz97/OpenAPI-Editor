@@ -9,8 +9,8 @@ export class AppPath {
 
     public summary: string;
     public description: string;
-    public servers: Server[] = undefined; //
-    public parameters: Parameter[] = undefined; //
+    public servers: Server[]; //
+    public parameters: Parameter[]; //
     public operations: AppOperation[] = [];
 
 }

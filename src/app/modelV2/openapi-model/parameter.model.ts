@@ -14,8 +14,8 @@ export class Parameter {
     public allowReserved: boolean;
     public schema: Schema = new Schema();
     public example: any;
-    public examples: Examples = undefined;
-    public content: Content = undefined;
+    public examples: Examples;
+    public content: Content;
 }
 export class Parameters {
     [key: string]: Parameter;

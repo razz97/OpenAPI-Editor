@@ -7,8 +7,8 @@ export class AppResponse {
     public status: string;
 
     public description: string;
-    public headers: Headers = undefined;
+    public headers: Headers;
     public content: AppMediaType[] = [];
-    public links: Links = undefined;
+    public links: Links;
     
 }

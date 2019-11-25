@@ -8,6 +8,7 @@ import { Server } from 'src/app/modelV2/openapi-model/server.model';
 import { AppRoot } from 'src/app/modelV2/app-model/AppRoot.model';
 import { AppPath } from 'src/app/modelV2/app-model/AppPath.model';
 import { Converter } from 'src/app/modelV2/converter';
+import { Root } from 'src/app/modelV2/openapi-model/root.model';
 
 declare const Redoc: any;
 
@@ -79,7 +80,8 @@ export class RootComponent {
 
   refresh() {
     const document = new Document();
-    document.contents = createNode(Converter.fromAppRoot(this.root));
+    const root: Root = Converter.fromAppRoot(this.root);
+    document.contents = createNode(root);
     Redoc.init(
       document.toJSON(),
       {

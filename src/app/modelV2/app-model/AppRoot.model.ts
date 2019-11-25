@@ -9,8 +9,8 @@ export class AppRoot {
     public info: Info = new Info();     
     public servers: Server[] = [];
     public paths: AppPath[] = [];
-    public components: Components = undefined; //
-    public security: Security = undefined; //
-    public tags: Tag[] = undefined; //
-    public externalDocs: ExternalDocs = undefined; //
+    public components: Components; //
+    public security: Security; //
+    public tags: Tag[]; //
+    public externalDocs: ExternalDocs; //
 }
