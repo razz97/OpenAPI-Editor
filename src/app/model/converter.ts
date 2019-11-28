@@ -58,8 +58,10 @@ export class Converter {
         appResponses
             .filter(appResponse => appResponse.status)
             .forEach(appResponse => {
-                if (appResponse.content)
+                if (appResponse.appContent) {
                     appResponse.content = this.fromAppContent(appResponse.appContent);
+                    delete appResponse.content;
+                }
                 responses[appResponse.status] = appResponse;
             });
         return responses;
@@ -90,7 +92,7 @@ export class Converter {
         return appSchema;
     }
 
-    public static fromAppProperties(appProperties: AppSchema[]) {
+    public static fromAppProperties(appProperties: AppSchema[]): Schemas {
         const properties: Schemas = new Schemas();
         appProperties.forEach(prop => {
             if (prop.appProperties) {
@@ -101,7 +103,7 @@ export class Converter {
                 prop.items = this.fromAppSchema(prop.appItems);
                 delete prop.appItems;
             }
-            properties[name] = prop;
+            properties[prop.name] = prop;
             delete prop.name;
         });
         return properties;

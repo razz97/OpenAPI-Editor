@@ -37,7 +37,7 @@ export class SchemaComponent implements OnInit {
         break;
       case "array":
         this.removeProperties();
-        this.schema.items = new AppSchema();
+        this.schema.appItems = new AppSchema();
         break;
     }
   }
@@ -52,7 +52,7 @@ export class SchemaComponent implements OnInit {
   }
 
   removeItems() {
-    this.schema.items = undefined;
+    this.schema.appItems = undefined;
   }
 
   addProperty() {
