@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Server } from 'src/app/model/Server';
 import { Router } from '@angular/router';
 import { DataService } from 'src/app/services/data.service';
+import { Server } from 'src/app/model/openapi-model/server.model';
 
 @Component({
   selector: 'server',

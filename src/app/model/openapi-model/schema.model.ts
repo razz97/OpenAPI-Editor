@@ -16,14 +16,14 @@ export class Schema {
     public maxProperties: number;
     public minProperties: number;
     public required: boolean;
-    public enum: string[] = [];
+    public enum: string[];
     public type: string;
     public allOf: Schema;
     public oneOf: Schema;
     public anyOf: Schema;
     public not: Schema;
     public items: Schema;
-    public properties: Schema[] = [];
+    public properties: Schemas;
     public additionalProperties: boolean | Schema;
     public description: string;
     public format: string;

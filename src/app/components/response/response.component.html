@@ -15,11 +15,11 @@
 <button mat-button color="primary" (click)="addMediaType()" [disabled]="!contentTypes.length"><i
         class="material-icons">add</i></button>
 <div class="list-group">
-    <div class="list-group-item" *ngFor="let mediaType of response.content">
+    <div class="list-group-item" *ngFor="let mediaType of response.appContent">
         <p>{{mediaType.name}}
             <button mat-button color="warn" (click)="removeMediaType(mediaType)"><i
                     class="material-icons">clear</i></button>
         </p>
-        <schemaform [schema]="mediaType.schema" [isParam]="false"></schemaform>
+        <schemaform [schema]="mediaType.appSchema" [isParam]="false"></schemaform>
     </div>
 </div>

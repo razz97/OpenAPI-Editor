@@ -2,8 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { DataService } from '../../services/data.service';
-import { AppResponse } from 'src/app/modelV2/app-model/AppResponse.model';
-import { AppMediaType } from 'src/app/modelV2/app-model/AppMediaType.model';
+import { AppResponse, AppMediaType } from 'src/app/model/app.model';
 
 @Component({
   selector: 'response',
@@ -21,7 +20,7 @@ export class ResponseComponent {
   response: AppResponse = new AppResponse();
 
   removeMediaType(mediaType: AppMediaType) {
-    this.response.content.splice(this.response.content.indexOf(mediaType), 1);
+    this.response.appContent.splice(this.response.appContent.indexOf(mediaType), 1);
     this.contentTypes.push(mediaType.name);
   }
 
@@ -29,7 +28,7 @@ export class ResponseComponent {
     const contentType = this.selectedContentType;
     this.contentTypes.splice(this.contentTypes.indexOf(contentType), 1);
     this.selectedContentType = this.contentTypes[0];
-    this.response.content.push(new AppMediaType(contentType));
+    this.response.appContent.push(new AppMediaType(contentType));
   }
 
   back() {

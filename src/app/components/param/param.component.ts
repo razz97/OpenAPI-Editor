@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
-import { Param, ParamLocation } from '../../model/Param';
 import {  Router } from '@angular/router';
 import { DataService } from '../../services/data.service';
-import { Parameter } from 'src/app/modelV2/openapi-model/parameter.model';
+import { Parameter } from 'src/app/model/openapi-model/parameter.model';
 
 @Component({
   selector: 'param',
@@ -17,7 +16,7 @@ export class ParamComponent {
     dataService.observeParam(param => this.param = param);
   }
 
-  public paramLocations: ParamLocation[] = ["Path", "Query", "Header", "Cookie"];
+  public paramLocations: string[] = ["Path", "Query", "Header", "Cookie"];
 
   public param: Parameter = new Parameter();
 

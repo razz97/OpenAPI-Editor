@@ -25,7 +25,7 @@
     </button>
 </p>
 <div class="list-group" id="list-responses">
-    <div class="list-group-item" *ngFor="let response of operation.responses ">
+    <div class="list-group-item" *ngFor="let response of operation.appResponses ">
         {{response.status ? response.status : 'New response' }}
         <button mat-button color="primary" (click)="editResponse(response)"><i class="material-icons">edit</i></button>
         <button mat-button color="warn" (click)="removeResponse(response)"><i class="material-icons">clear</i></button>

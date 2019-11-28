@@ -2,9 +2,8 @@ import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { DataService } from 'src/app/services/data.service';
-import { Parameter } from 'src/app/modelV2/openapi-model/parameter.model';
-import { AppOperation } from 'src/app/modelV2/app-model/AppOperation.model';
-import { AppResponse } from 'src/app/modelV2/app-model/AppResponse.model';
+import { Parameter } from 'src/app/model/openapi-model/parameter.model';
+import { AppOperation, AppResponse } from 'src/app/model/app.model';
 
 @Component({
   selector: 'operation',
@@ -34,11 +33,11 @@ export class OperationComponent {
   }
 
   addResponse() {
-    this.operation.responses.push(new AppResponse());
+    this.operation.appResponses.push(new AppResponse());
   }
 
   removeResponse(response: AppResponse) {
-    this.operation.responses.splice(this.operation.responses.indexOf(response), 1);
+    this.operation.appResponses.splice(this.operation.appResponses.indexOf(response), 1);
   }
 
   editResponse(response: AppResponse) {

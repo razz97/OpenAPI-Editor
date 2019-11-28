@@ -2,9 +2,8 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Remote } from 'electron';
 import { Router } from '@angular/router';
 
-import { DataService } from 'src/app/services/data.service';
-import { AppPath } from 'src/app/modelV2/app-model/AppPath.model';
-import { AppOperation } from 'src/app/modelV2/app-model/AppOperation.model';
+import { DataService } from '../../services/data.service';
+import { AppPath, AppOperation } from '../../model/app.model';
 
 
 @Component({

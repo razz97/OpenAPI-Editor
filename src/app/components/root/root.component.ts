@@ -4,11 +4,10 @@ import { createNode, Document } from 'yaml';
 import { Remote } from 'electron';
 
 import { DataService } from 'src/app/services/data.service';
-import { Server } from 'src/app/modelV2/openapi-model/server.model';
-import { AppRoot } from 'src/app/modelV2/app-model/AppRoot.model';
-import { AppPath } from 'src/app/modelV2/app-model/AppPath.model';
-import { Converter } from 'src/app/modelV2/converter';
-import { Root } from 'src/app/modelV2/openapi-model/root.model';
+import { Server } from 'src/app/model/openapi-model/server.model';
+import { Converter } from 'src/app/model/converter';
+import { Root } from 'src/app/model/openapi-model/root.model';
+import { AppRoot, AppPath } from 'src/app/model/app.model';
 
 declare const Redoc: any;
 
@@ -43,7 +42,7 @@ export class RootComponent {
   }
 
   addPath() {
-    this.root.paths.push(new AppPath());
+    this.root.appPaths.push(new AppPath());
   }
 
   editPath(path: AppPath) {
@@ -52,7 +51,7 @@ export class RootComponent {
   }
 
   removePath(path: AppPath) {
-    this.root.paths.splice(this.root.paths.indexOf(path), 1);
+    this.root.appPaths.splice(this.root.appPaths.indexOf(path), 1);
   }
 
   // addGroup() {

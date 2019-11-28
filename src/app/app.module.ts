@@ -8,7 +8,6 @@ import { ReuseStrategy } from './ReuseStrategy';
 import { ExternalModule } from './external.module';
 // Services
 import { DataService } from './services/data.service';
-import { DocumentService } from './services/document.service';
 // Components
 import { PathComponent } from './components/path/path.component';
 import { SchemaComponent } from './components/schema/schema.component';
@@ -37,7 +36,6 @@ import { OperationComponent } from './components/operation/operation.component';
     ExternalModule
   ],
   providers: [
-    DocumentService,
     DataService,
     {
       provide: RouteReuseStrategy,

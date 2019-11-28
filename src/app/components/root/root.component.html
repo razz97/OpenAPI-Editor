@@ -58,7 +58,7 @@
     </button>
 </p>
 <div class="list-group">
-    <div class="list-group-item" *ngFor="let path of root.paths">
+    <div class="list-group-item" *ngFor="let path of root.appPaths">
         {{path.name ? path.name : 'New path' }}
         <button mat-button color="primary" (click)="editPath(path)" ><i class="material-icons">edit</i></button>
         <button mat-button color="warn" (click)="removePath(path)"><i class="material-icons">clear</i></button>

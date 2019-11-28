@@ -1,11 +1,8 @@
 import { BehaviorSubject } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { Parameter } from '../modelV2/openapi-model/parameter.model';
-import { Server } from '../modelV2/openapi-model/server.model';
-import { Path } from '../modelV2/openapi-model/path.model';
-import { Response } from '../modelV2/openapi-model/responses.model';
-import { AppResponse } from '../modelV2/app-model/AppResponse.model';
-import { AppPath } from '../modelV2/app-model/AppPath.model';
+import { Parameter } from '../model/openapi-model/parameter.model';
+import { Server } from '../model/openapi-model/server.model';
+import { AppResponse, AppPath } from '../model/app.model';
 
 
 @Injectable()
