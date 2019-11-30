@@ -5,7 +5,7 @@ import { Remote } from 'electron';
 
 import { DataService } from 'src/app/services/data.service';
 import { Server } from 'src/app/model/server.model';
-import { Converter } from 'src/app/services/converter';
+import { SerializeService } from 'src/app/services/serialize.service';
 import { Root } from 'src/app/model/root.model';
 import { Path } from 'src/app/model/path.model';
 
@@ -17,14 +17,16 @@ declare const Redoc: any;
 })
 export class RootComponent {
 
-  constructor(private router: Router, private dataService: DataService) {
+  constructor(private router: Router, private dataService: DataService, private serializeService: SerializeService) {
     this.remote = (<any>window).require('electron').remote;
+    this.fs = this.remote.require('fs');
   }
 
   @ViewChild('redoc', { static: true }) 
   redoc: ElementRef;
 
   private remote: Remote;
+  private fs: any;
 
   root: Root = new Root();
   
@@ -67,22 +69,26 @@ export class RootComponent {
   //   this.root.tagGroups.splice(this.root.tagGroups.indexOf(tagGroup), 1);
   // }
 
-  save() {
+  exportJSON() {
+    const content = this.serializeService.toJSONString(this.root);
+    this.save(content);
+  }
+
+  exportYAML() {
+    const content = this.serializeService.toYAMLString(this.root);
+    this.save(content);
+  }
+
+  save(content: string) {
     const folder = this.remote.dialog.showSaveDialogSync({});
     if (folder) {
-      this.remote.require('fs').appendFileSync(folder, createNode(Converter.serialize(this.root)).toString());
+      this.fs.appendFileSync(folder, content);
     }
-    const document = new Document();
-    document.contents = createNode(Converter.serialize(this.root));
-    console.log(document.toString());
   }
 
   refresh() {
-    const document = new Document();
-    const root: Root = Converter.serialize(this.root);
-    document.contents = createNode(root);
     Redoc.init(
-      document.toJSON(),
+      this.serializeService.toJSONObject(this.root),
       {
         pathInMiddlePanel: true,
         hideDownloadButton: true

@@ -1,23 +1,42 @@
 import { Root } from '../model/root.model';
 import { Paths, Path } from '../model/path.model';
-import { Operation } from '../model/operation.model';
 import { Responses, Response } from '../model/responses.model';
 import { Content, MediaType } from '../model/content.model';
 import { Schema, Schemas } from '../model/schema.model';
+import { createNode, Document } from 'yaml';
 
-export class Converter {
+export class SerializeService {
 
-    private static methods: string[] = ['get', 'post', 'put', 'delete', 'options', 'head', 'patch', 'trace'];
+    private methods: string[] = ['get', 'post', 'put', 'delete', 'options', 'head', 'patch', 'trace'];
 
-    public static serialize(original: Root): Root {
-        const root: Root = Converter.deepCopy(original);
+    public toJSONObject(root: Root) {
+        return this.buildDocument(root).toJSON();
+    }
+
+    public toJSONString(root: Root): string {
+        return JSON.stringify(this.buildDocument(root).toJSON());
+    }
+
+    public toYAMLString(root: Root): string {
+        return this.buildDocument(root).toString();
+    }
+
+
+    private buildDocument(root: Root): Document {
+        const document = new Document();
+        document.contents = createNode(this.serialize(root));
+        return document;
+    }
+
+    private serialize(original: Root): Root {
+        const root: Root = this.deepCopy(original);
         if (root.appPaths)
-            root.paths = Converter.getPathsFromList(root.appPaths);
+            root.paths = this.getPathsFromList(root.appPaths);
         delete root.appPaths;
         return root;
     }
 
-    private static deepCopy<T>(oldObj: T): T {
+    private deepCopy<T>(oldObj: T): T {
         var newObj: any = oldObj;
         if (oldObj && typeof oldObj === "object") {
             newObj = Object.prototype.toString.call(oldObj) === "[object Array]" ? [] : {};
@@ -28,32 +47,32 @@ export class Converter {
         return newObj;
     }
 
-    private static getPathsFromList(appPaths: Path[]): Paths {
+    private getPathsFromList(appPaths: Path[]): Paths {
         const paths = new Paths();
         appPaths
             .filter(appPath => appPath.name)
             .forEach(appPath => {
                 if (appPath.operations)
-                    Converter.fillPathOperations(appPath);
+                    this.fillPathOperations(appPath);
                 paths[appPath.name] = appPath;
                 delete appPath.name;
             });
         return paths;
     }
 
-    private static fillPathOperations(appPath: Path): void {
+    private fillPathOperations(appPath: Path): void {
         appPath.operations
             .filter(appOperation => appOperation.method)
             .forEach(appOperation => {
                 appOperation.parameters
                     .forEach(param => {
                         if (param.appSchema) {
-                            param.schema = Converter.fromAppSchema(param.appSchema);
+                            param.schema = this.fromAppSchema(param.appSchema);
                             delete param.appSchema;
                         }
                     });
                 if (appOperation.appResponses) {
-                    appOperation.responses = Converter.fromAppResponses(appOperation.appResponses);
+                    appOperation.responses = this.fromAppResponses(appOperation.appResponses);
                     delete appOperation.appResponses;
                 }
                 const method = appOperation.method;
@@ -63,7 +82,7 @@ export class Converter {
         delete appPath.operations;
     }
 
-    private static fromAppResponses(appResponses: Response[]): Responses {
+    private fromAppResponses(appResponses: Response[]): Responses {
         const responses = new Responses;
         appResponses
             .filter(appResponse => appResponse.status)
@@ -77,13 +96,13 @@ export class Converter {
         return responses;
     }
 
-    private static fromAppContent(appContent: MediaType[]): Content {
+    private fromAppContent(appContent: MediaType[]): Content {
         const content: Content = new Content();
         appContent
             .filter(appMediaType => appMediaType.name)
             .forEach(appMediaType => {
                 if (appMediaType.appSchema) {
-                    appMediaType.schema = Converter.fromAppSchema(appMediaType.appSchema);
+                    appMediaType.schema = this.fromAppSchema(appMediaType.appSchema);
                     delete appMediaType.appSchema;
                 }
                 content[appMediaType.name] = appMediaType;
@@ -92,17 +111,17 @@ export class Converter {
         return content;
     }
 
-    private static fromAppSchema(appSchema: Schema): Schema {
+    private fromAppSchema(appSchema: Schema): Schema {
         if (appSchema.appItems)
-            appSchema.items = Converter.fromAppSchema(appSchema.appItems);
+            appSchema.items = this.fromAppSchema(appSchema.appItems);
         if (appSchema.appProperties)
-            appSchema.properties = Converter.fromAppProperties(appSchema.appProperties);
+            appSchema.properties = this.fromAppProperties(appSchema.appProperties);
         delete appSchema.appItems;
         delete appSchema.appProperties;
         return appSchema;
     }
 
-    private static fromAppProperties(appProperties: Schema[]): Schemas {
+    private fromAppProperties(appProperties: Schema[]): Schemas {
         const properties: Schemas = new Schemas();
         appProperties.forEach(prop => {
             if (prop.appProperties) {
