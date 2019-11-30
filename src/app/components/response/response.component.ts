@@ -21,7 +21,6 @@ export class ResponseComponent {
           .includes(name)
         );
     });
-    console.dir(this.contentTypes);
   }
   private allContentTypes = ["application/json", "text/plain", "text/html", "application/xml"];
 
