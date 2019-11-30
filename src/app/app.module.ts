@@ -1,5 +1,5 @@
 // Angular core
-import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
+import { NgModule } from '@angular/core';
 // Router related
 import { AppRoutingModule } from './app-routing.module';
 import { RouteReuseStrategy } from '@angular/router';
@@ -44,7 +44,6 @@ import { OperationComponent } from './components/operation/operation.component';
       useClass: ReuseStrategy
     }
   ],
-  bootstrap: [AppComponent],
-  schemas: [NO_ERRORS_SCHEMA]
+  bootstrap: [AppComponent]
 })
 export class AppModule { }
