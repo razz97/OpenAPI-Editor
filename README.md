@@ -1,8 +1,8 @@
-# OpenAPI Editor
+## OpenAPI Editor
 
 This is a cross-platform simple GUI editor for generating valid openapi specifications. At the moment, the editor is compatible with OpenAPI version 3.0.
 
-Features:
+### Features:
 * Export specification in YAML or JSON format. 
 * Preview the html/js generated at any time during your editing.
 * [DOING] Add support for all OpenApi standard features.
@@ -11,10 +11,10 @@ Features:
 * [TODO] Save schemas and reuse them.
 * [TODO] Add support for Redoc implemented vendor extensions.
 
-Frameworks used:
+### Frameworks used:
 * [Electron](https://github.com/electron/electron)
 * [Angular](https://github.com/angular/angular)
 
-Builds on top of:
+### Builds on top of:
 * [Redoc](https://github.com/Redocly/redoc)
 * [OpenAPI Specification](https://github.com/OAI/OpenAPI-Specification)
