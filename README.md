@@ -17,4 +17,4 @@ Frameworks used:
 
 Builds on top of:
 * [Redoc](https://github.com/Redocly/redoc)
-* [OpenAPI Specification](https://github.com/eemeli/yaml)
+* [OpenAPI Specification](https://github.com/OAI/OpenAPI-Specification)
