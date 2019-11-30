@@ -3,6 +3,8 @@ import { Examples } from './misc.model';
 import { Content } from './content.model';
 
 export class Parameter {
+    public appSchema: Schema = new Schema();
+
     public name: string;
     public in: string;
     public description: string;
@@ -12,7 +14,7 @@ export class Parameter {
     public style: string;
     public explode: boolean;
     public allowReserved: boolean;
-    public schema: Schema = new Schema();
+    public schema: Schema;
     public example: any;
     public examples: Examples;
     public content: Content;

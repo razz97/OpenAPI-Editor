@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {  Router } from '@angular/router';
 import { DataService } from '../../services/data.service';
-import { Parameter } from 'src/app/model/openapi-model/parameter.model';
+import { Parameter } from 'src/app/model/parameter.model';
 
 @Component({
   selector: 'param',
@@ -18,7 +18,7 @@ export class ParamComponent {
 
   public paramLocations: string[] = ["Path", "Query", "Header", "Cookie"];
 
-  public param: Parameter = new Parameter();
+  public param: Parameter;
 
 
   back() {

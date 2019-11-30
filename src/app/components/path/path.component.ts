@@ -3,7 +3,8 @@ import { Remote } from 'electron';
 import { Router } from '@angular/router';
 
 import { DataService } from '../../services/data.service';
-import { AppPath, AppOperation } from '../../model/app.model';
+import { Path } from 'src/app/model/path.model';
+import { Operation } from 'src/app/model/operation.model';
 
 
 @Component({
@@ -26,9 +27,9 @@ export class PathComponent {
 
   methodSelected: string = this.methods[0];
 
-  path: AppPath;
+  path: Path;
 
-  removeOperation(operation: AppOperation) {
+  removeOperation(operation: Operation) {
     this.path.operations.splice(this.path.operations.indexOf(operation), 1);
     this.methods.push(operation.method);
   }
@@ -37,7 +38,7 @@ export class PathComponent {
     const method = this.methodSelected.toLowerCase();
     this.methods.splice(this.methods.indexOf(this.methodSelected), 1);
     this.methodSelected = this.methods[0];
-    this.path.operations.push(new AppOperation(method));
+    this.path.operations.push(new Operation(method));
   }
 
   back() {

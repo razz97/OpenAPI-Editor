@@ -1,6 +1,10 @@
 import { ExternalDocs } from './misc.model';
 
 export class Schema {
+    public name: string;
+    public appProperties: Schema[];
+    public appItems: Schema;
+
     public title: string;
     public multipleOf: number;
     public maximum: number;

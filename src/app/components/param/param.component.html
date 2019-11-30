@@ -12,5 +12,5 @@
 <mat-form-field>
     <input matInput placeholder="Description" [(ngModel)]="param.description">
 </mat-form-field>
-<schemaform [schema]="param.schema" [isParam]="true"></schemaform>
+<schemaform [schema]="param.appSchema" [isParam]="true"></schemaform>
 <mat-slide-toggle [(ngModel)]="param.required" style.left-margin="5px">Required</mat-slide-toggle>

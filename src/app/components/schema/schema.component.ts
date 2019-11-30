@@ -1,24 +1,18 @@
 import { Component, OnInit, Input, Output, ViewChild, QueryList, EventEmitter } from '@angular/core';
-import { AppSchema } from 'src/app/model/app.model';
+import { Schema } from 'src/app/model/schema.model';
 
 @Component({
   selector: 'schemaform',
   templateUrl: './schema.component.html'
 })
-export class SchemaComponent implements OnInit {
+export class SchemaComponent {
 
   constructor() { }
 
-  ngOnInit() {
-    if (this.isParam) {
-      this.schemaTypes = this.schemaTypesParam;
-    }
-  }
-  private schemaTypesParam: string[] = ["string", "number", "boolean"];
   public schemaTypes: string[] = ["string", "array", "object", "number", "boolean"];
 
   @Input()
-  public schema: AppSchema;
+  public schema: Schema;
   @Input()
   public isParam: boolean;
 
@@ -33,11 +27,11 @@ export class SchemaComponent implements OnInit {
         break;
       case "object":
         this.removeItems();
-        this.schema.appProperties = [new AppSchema()];
+        this.schema.appProperties = [new Schema()];
         break;
       case "array":
         this.removeProperties();
-        this.schema.appItems = new AppSchema();
+        this.schema.appItems = new Schema();
         break;
     }
   }
@@ -56,10 +50,10 @@ export class SchemaComponent implements OnInit {
   }
 
   addProperty() {
-    this.schema.appProperties.push(new AppSchema());
+    this.schema.appProperties.push(new Schema());
   }
 
-  removeProperty(property: AppSchema) {
+  removeProperty(property: Schema) {
     this.schema.appProperties.splice(this.schema.appProperties.indexOf(property));
   }
 

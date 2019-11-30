@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { DataService } from '../../services/data.service';
-import { AppResponse, AppMediaType } from 'src/app/model/app.model';
+import { Response } from 'src/app/model/responses.model';
+import { MediaType } from 'src/app/model/content.model';
 
 @Component({
   selector: 'response',
@@ -11,15 +12,25 @@ import { AppResponse, AppMediaType } from 'src/app/model/app.model';
 export class ResponseComponent {
 
   constructor(dataService: DataService, private router: Router) {
-    dataService.observeResponse(resp => this.response = resp);
+    dataService.observeResponse(resp => {
+      this.response = resp;
+      this.contentTypes = this.allContentTypes
+        .filter(name => 
+          !resp.appContent
+          .map(mediaType => mediaType.name)
+          .includes(name)
+        );
+    });
+    console.dir(this.contentTypes);
   }
+  private allContentTypes = ["application/json", "text/plain", "text/html", "application/xml"];
 
-  contentTypes: string[] = ["application/json", "text/plain", "text/html", "application/xml"];
-  selectedContentType: string = this.contentTypes[0];
+  contentTypes: string[];
+  selectedContentType: string;
 
-  response: AppResponse = new AppResponse();
+  response: Response = new Response();
 
-  removeMediaType(mediaType: AppMediaType) {
+  removeMediaType(mediaType: MediaType) {
     this.response.appContent.splice(this.response.appContent.indexOf(mediaType), 1);
     this.contentTypes.push(mediaType.name);
   }
@@ -28,7 +39,7 @@ export class ResponseComponent {
     const contentType = this.selectedContentType;
     this.contentTypes.splice(this.contentTypes.indexOf(contentType), 1);
     this.selectedContentType = this.contentTypes[0];
-    this.response.appContent.push(new AppMediaType(contentType));
+    this.response.appContent.push(new MediaType(contentType));
   }
 
   back() {

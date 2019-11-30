@@ -3,6 +3,9 @@ import { Server } from './server.model';
 import { Parameter } from './parameter.model';
 
 export class Path {
+    public name: string;
+    public operations: Operation[] = [];
+
     public summary: string;
     public description: string;
     public get: Operation;

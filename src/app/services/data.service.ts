@@ -1,18 +1,19 @@
 import { BehaviorSubject } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { Parameter } from '../model/openapi-model/parameter.model';
-import { Server } from '../model/openapi-model/server.model';
-import { AppResponse, AppPath } from '../model/app.model';
+import { Parameter } from '../model/parameter.model';
+import { Server } from '../model/server.model';
+import { Response } from '../model/responses.model';
+import { Path } from '../model/path.model';
 
 
 @Injectable()
 export class DataService {
 
     private paramObservable = new BehaviorSubject<Parameter>(null);
-    private responseObservable = new BehaviorSubject<AppResponse>(null);
+    private responseObservable = new BehaviorSubject<Response>(null);
     private serverObservable = new BehaviorSubject<Server>(null);
     // private tagGroupObservable = new BehaviorSubject(new TagGroup());
-    private pathObservable = new BehaviorSubject<AppPath>(null);
+    private pathObservable = new BehaviorSubject<Path>(null);
   
     observeParam(change: (param: Parameter) => void) {
         this.paramObservable.subscribe(change);
@@ -22,11 +23,11 @@ export class DataService {
       this.paramObservable.next(param);
     }
 
-    observeResponse(change: (response: AppResponse) => void) {
+    observeResponse(change: (response: Response) => void) {
         this.responseObservable.subscribe(change);
     }
 
-    sendResponse(response: AppResponse) {
+    sendResponse(response: Response) {
       this.responseObservable.next(response);
     }
 
@@ -46,11 +47,11 @@ export class DataService {
     //   this.tagGroupObservable.next(tagGroup);
     // }
 
-    observePath(change: (path: AppPath) => void) {
+    observePath(change: (path: Path) => void) {
       this.pathObservable.subscribe(change);
     }
 
-    sendPath(path: AppPath) {
+    sendPath(path: Path) {
       this.pathObservable.next(path);
     }
 

@@ -2,8 +2,9 @@ import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { DataService } from 'src/app/services/data.service';
-import { Parameter } from 'src/app/model/openapi-model/parameter.model';
-import { AppOperation, AppResponse } from 'src/app/model/app.model';
+import { Parameter } from 'src/app/model/parameter.model';
+import { Operation } from 'src/app/model/operation.model';
+import { Response } from 'src/app/model/responses.model';
 
 @Component({
   selector: 'operation',
@@ -17,7 +18,7 @@ export class OperationComponent {
   ) { }
 
   @Input()
-  operation: AppOperation;
+  operation: Operation;
 
   addParam() {
     this.operation.parameters.push(new Parameter());
@@ -33,14 +34,14 @@ export class OperationComponent {
   }
 
   addResponse() {
-    this.operation.appResponses.push(new AppResponse());
+    this.operation.appResponses.push(new Response());
   }
 
-  removeResponse(response: AppResponse) {
+  removeResponse(response: Response) {
     this.operation.appResponses.splice(this.operation.appResponses.indexOf(response), 1);
   }
 
-  editResponse(response: AppResponse) {
+  editResponse(response: Response) {
     this.router.navigateByUrl('response');
     this.dataService.sendResponse(response);
   }

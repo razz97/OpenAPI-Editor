@@ -4,10 +4,10 @@ import { createNode, Document } from 'yaml';
 import { Remote } from 'electron';
 
 import { DataService } from 'src/app/services/data.service';
-import { Server } from 'src/app/model/openapi-model/server.model';
-import { Converter } from 'src/app/model/converter';
-import { Root } from 'src/app/model/openapi-model/root.model';
-import { AppRoot, AppPath } from 'src/app/model/app.model';
+import { Server } from 'src/app/model/server.model';
+import { Converter } from 'src/app/services/converter';
+import { Root } from 'src/app/model/root.model';
+import { Path } from 'src/app/model/path.model';
 
 declare const Redoc: any;
 
@@ -26,7 +26,7 @@ export class RootComponent {
 
   private remote: Remote;
 
-  root: AppRoot = new AppRoot();
+  root: Root = new Root();
   
   addServer() {
     this.root.servers.push(new Server());
@@ -42,15 +42,15 @@ export class RootComponent {
   }
 
   addPath() {
-    this.root.appPaths.push(new AppPath());
+    this.root.appPaths.push(new Path());
   }
 
-  editPath(path: AppPath) {
+  editPath(path: Path) {
     this.dataService.sendPath(path);
     this.router.navigateByUrl('path');
   }
 
-  removePath(path: AppPath) {
+  removePath(path: Path) {
     this.root.appPaths.splice(this.root.appPaths.indexOf(path), 1);
   }
 
@@ -70,16 +70,16 @@ export class RootComponent {
   save() {
     const folder = this.remote.dialog.showSaveDialogSync({});
     if (folder) {
-      this.remote.require('fs').appendFileSync(folder, createNode(Converter.fromAppRoot(this.root)).toString());
+      this.remote.require('fs').appendFileSync(folder, createNode(Converter.serialize(this.root)).toString());
     }
     const document = new Document();
-    document.contents = createNode(Converter.fromAppRoot(this.root));
+    document.contents = createNode(Converter.serialize(this.root));
     console.log(document.toString());
   }
 
   refresh() {
     const document = new Document();
-    const root: Root = Converter.fromAppRoot(this.root);
+    const root: Root = Converter.serialize(this.root);
     document.contents = createNode(root);
     Redoc.init(
       document.toJSON(),

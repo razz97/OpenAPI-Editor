@@ -5,7 +5,10 @@ export class Content {
     [key: string]: MediaType;
 }
 export class MediaType {
-    public schema: Schema = new Schema();
+    constructor(public name: string) {  }
+    public appSchema: Schema = new Schema();
+
+    public schema: Schema;
     public example: any; //
     public examples: Examples; //
     public encoding: Encodings; //
