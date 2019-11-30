@@ -1,13 +1,12 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { createNode, Document } from 'yaml';
-import { Remote } from 'electron';
 
 import { DataService } from 'src/app/services/data.service';
 import { Server } from 'src/app/model/server.model';
 import { SerializeService } from 'src/app/services/serialize.service';
 import { Root } from 'src/app/model/root.model';
 import { Path } from 'src/app/model/path.model';
+import { IOService } from 'src/app/services/io.service';
 
 declare const Redoc: any;
 
@@ -17,19 +16,18 @@ declare const Redoc: any;
 })
 export class RootComponent {
 
-  constructor(private router: Router, private dataService: DataService, private serializeService: SerializeService) {
-    this.remote = (<any>window).require('electron').remote;
-    this.fs = this.remote.require('fs');
-  }
+  constructor(
+    private router: Router,
+    private dataService: DataService,
+    private serializeService: SerializeService,
+    private ioService: IOService
+  ) { }
 
-  @ViewChild('redoc', { static: true }) 
+  @ViewChild('redoc', { static: true })
   redoc: ElementRef;
 
-  private remote: Remote;
-  private fs: any;
-
   root: Root = new Root();
-  
+
   addServer() {
     this.root.servers.push(new Server());
   }
@@ -71,19 +69,16 @@ export class RootComponent {
 
   exportJSON() {
     const content = this.serializeService.toJSONString(this.root);
-    this.save(content);
+    this.ioService.save(content);
   }
 
   exportYAML() {
     const content = this.serializeService.toYAMLString(this.root);
-    this.save(content);
+    this.ioService.save(content);
   }
 
-  save(content: string) {
-    const folder = this.remote.dialog.showSaveDialogSync({});
-    if (folder) {
-      this.fs.appendFileSync(folder, content);
-    }
+  import() {
+    this.ioService.read();
   }
 
   refresh() {

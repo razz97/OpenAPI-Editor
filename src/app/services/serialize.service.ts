@@ -4,7 +4,9 @@ import { Responses, Response } from '../model/responses.model';
 import { Content, MediaType } from '../model/content.model';
 import { Schema, Schemas } from '../model/schema.model';
 import { createNode, Document } from 'yaml';
+import { Injectable } from '@angular/core';
 
+@Injectable()
 export class SerializeService {
 
     private methods: string[] = ['get', 'post', 'put', 'delete', 'options', 'head', 'patch', 'trace'];

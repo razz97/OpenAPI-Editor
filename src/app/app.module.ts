@@ -9,6 +9,7 @@ import { ExternalModule } from './external.module';
 // Services
 import { DataService } from './services/data.service';
 import { SerializeService } from './services/serialize.service';
+import { IOService } from './services/io.service';
 // Components
 import { PathComponent } from './components/path/path.component';
 import { SchemaComponent } from './components/schema/schema.component';
@@ -39,6 +40,7 @@ import { OperationComponent } from './components/operation/operation.component';
   providers: [
     DataService,
     SerializeService,
+    IOService,
     {
       provide: RouteReuseStrategy,
       useClass: ReuseStrategy
