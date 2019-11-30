@@ -15,6 +15,6 @@ This is a cross-platform simple GUI editor for generating valid openapi specific
 * [Electron](https://github.com/electron/electron)
 * [Angular](https://github.com/angular/angular)
 
-### Builds on top of:
+### Built on top of:
 * [Redoc](https://github.com/Redocly/redoc)
 * [OpenAPI Specification](https://github.com/OAI/OpenAPI-Specification)
