@@ -78,7 +78,8 @@ export class RootComponent {
   }
 
   import() {
-    this.ioService.read();
+    const content = this.ioService.read();
+    this.root = this.serializeService.parse(content);
   }
 
   refresh() {

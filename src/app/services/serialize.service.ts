@@ -5,11 +5,13 @@ import { Content, MediaType } from '../model/content.model';
 import { Schema, Schemas } from '../model/schema.model';
 import { createNode, Document } from 'yaml';
 import { Injectable } from '@angular/core';
+import { Operation } from '../model/operation.model';
+import OpenAPISchemaValidator from 'openapi-schema-validator';
 
 @Injectable()
 export class SerializeService {
 
-    private methods: string[] = ['get', 'post', 'put', 'delete', 'options', 'head', 'patch', 'trace'];
+    public methods: string[] = ['get', 'post', 'put', 'delete', 'options', 'head', 'patch', 'trace'];
 
     public toJSONObject(root: Root) {
         return this.buildDocument(root).toJSON();
@@ -56,8 +58,9 @@ export class SerializeService {
             .forEach(appPath => {
                 if (appPath.operations)
                     this.fillPathOperations(appPath);
-                paths[appPath.name] = appPath;
+                const name = appPath.name;
                 delete appPath.name;
+                paths[name] = appPath;
             });
         return paths;
     }
@@ -93,7 +96,9 @@ export class SerializeService {
                     appResponse.content = this.fromAppContent(appResponse.appContent);
                     delete appResponse.appContent;
                 }
-                responses[appResponse.status] = appResponse;
+                const status = appResponse.status;
+                delete appResponse.status;
+                responses[status] = appResponse;
             });
         return responses;
     }
@@ -126,70 +131,77 @@ export class SerializeService {
     private fromAppProperties(appProperties: Schema[]): Schemas {
         const properties: Schemas = new Schemas();
         appProperties.forEach(prop => {
-            if (prop.appProperties) {
+            if (prop.appProperties) 
                 prop.properties = this.fromAppProperties(prop.appProperties);
-                delete prop.appProperties;
-            }
-            if (prop.appItems) {
+            
+            if (prop.appItems) 
                 prop.items = this.fromAppSchema(prop.appItems);
-                delete prop.appItems;
-            }
+            delete prop.appProperties;
+            delete prop.appItems;
             properties[prop.name] = prop;
             delete prop.name;
         });
         return properties;
     }
 
-    // public static fromOpenApiRoot(root: Root): AppRoot {
-    //     const appRoot: any = root;
-    //     appRoot.appPaths = Converter.fromApiPaths(root.paths);
-    //     return appRoot;
-    // }
+    public parse(content: string): Root {
+        const appRoot = JSON.parse(content);
+        const validationErros = new OpenAPISchemaValidator({version: 3}).validate(appRoot);
+        if (validationErros.errors.length) {
+            // TODO Show errors to the user, probably throw exception
+            console.error('The openapi doc is invalid because: ');
+            console.dir(validationErros.errors);
+            return new Root();
+        }
+        appRoot.appPaths = this.fromApiPaths(appRoot.paths);
+        delete appRoot.paths;
+        return appRoot;
+    }
 
-    // public static fromApiPaths(paths: Paths): AppPath[] {
-    //     const appPaths: AppPath[] = [];
-    //     Object.keys(paths).forEach(key => {
-    //         const appPath: any = paths[key];
-    //         appPath.name = key;
-    //         appPath.operations = [];
-    //         Converter.methods
-    //             .filter(method => paths[key][method])
-    //             .forEach(method => {
-    //                 appPath.operations.push(Converter.fromApiOperation('get', paths[key][method]));
-    //             });
-    //         appPaths.push(appPath);
-    //     });
-    //     return appPaths;
-    // }
+    private fromApiPaths(paths: Paths): Path[] {
+        const appPaths: Path[] = [];
+        Object.keys(paths).forEach(key => {
+            const appPath: any = paths[key];
+            appPath.name = key;
+            appPath.operations = [];
+            this.methods
+                .filter(method => paths[key][method])
+                .forEach(method => {
+                    appPath.operations.push(this.fromApiOperation('get', paths[key][method]));
+                });
+            appPaths.push(appPath);
+        });
+        return appPaths;
+    }
 
-    // public static fromApiOperation(method: string, operation: Operation): AppOperation {
-    //     const appOperation: any = operation
-    //     appOperation.method = method;
-    //     if (operation.responses)
-    //         appOperation.appResponses = Converter.fromApiResponses(operation.responses);
-    //     return appOperation;
-    // }
+    private fromApiOperation(method: string, operation: Operation): Operation {
+        const appOperation: any = operation
+        appOperation.method = method;
+        if (operation.responses)
+            appOperation.appResponses = this.fromApiResponses(operation.responses);
+        return appOperation;
+    }
 
-    // public static fromApiResponses(responses: Responses): AppResponse[] {
-    //     const appResponses: AppResponse[] = [];
-    //     Object.keys(responses).forEach(key => {
-    //         const appResponse: any = responses[key];
-    //         if (appResponse.content)
-    //             appResponse.appContent = Converter.fromApiContent(appResponse.content);
-    //         appResponse.status = key;
-    //         appResponses.push(appResponse);
-    //     });
-    //     return appResponses;
-    // }
+    private fromApiResponses(responses: Responses): Response[] {
+        const appResponses: Response[] = [];
+        Object.keys(responses).forEach(key => {
+            const appResponse: any = responses[key];
+            if (appResponse.content)
+                appResponse.appContent = this.fromApiContent(appResponse.content);
+            appResponse.status = key;
+            appResponses.push(appResponse);
+        });
+        return appResponses;
+    }
 
-    // public static fromApiContent(content: Content): AppMediaType[] {
-    //     const appContent: AppMediaType[] = [];
-    //     Object.keys(content).forEach(key => {
-    //         const appMediaType: any = content[key];
-    //         appMediaType.name = key;
-    //         appContent.push(appMediaType);
-    //     });
-    //     return appContent;
-    // }
+    private fromApiContent(content: Content): MediaType[] {
+        const appContent: MediaType[] = [];
+        Object.keys(content).forEach(key => {
+            const appMediaType: any = content[key];
+            appMediaType.name = key;
+            appContent.push(appMediaType);
+        });
+        return appContent;
+    }
 
 }
