@@ -1,7 +1,5 @@
-<button mat-button color="primary" data-toggle="modal" data-target="#modal" (click)="refresh()">Preview</button>
-<button mat-button color="primary" (click)="exportJSON()">Export as JSON</button>
-<button mat-button color="primary" (click)="exportYAML()">Export as YAML</button>
-<button mat-button color="primary" (click)="import()">Import</button>
+<button mat-button color="primary" data-toggle="modal" data-target="#modal-preview" (click)="refresh()">Preview</button>
+<app-export-import [(root)]="root" ></app-export-import>
 <mat-form-field>
     <input matInput placeholder="Api title" [(ngModel)]="root.info.title">
 </mat-form-field>
@@ -68,7 +66,7 @@
 </div>
 
 <!-- Preview modal -->
-<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+<div class="modal fade" id="modal-preview" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
     <div class="modal-dialog mw-100 w-90" role="document">
         <div class="modal-content">
             <div class="modal-body" #redoc>

@@ -20,6 +20,7 @@ import { RootComponent } from './components/root/root.component';
 import { ServerComponent } from './components/server/server.component';
 import { TagGroupComponent } from './components/tag-group/tag-group.component';
 import { OperationComponent } from './components/operation/operation.component';
+import { ExportImportComponent } from './exportImport/exportImport.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { OperationComponent } from './components/operation/operation.component';
     RootComponent,
     ServerComponent,
     TagGroupComponent,
-    OperationComponent
+    OperationComponent,
+    ExportImportComponent
   ],
   imports: [
     AppRoutingModule,

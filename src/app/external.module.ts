@@ -13,7 +13,8 @@ import {
     MatExpansionModule,
     MatGridListModule,
     MatSlideToggleModule,
-    MatCardModule
+    MatCardModule,
+    MatRadioModule
 } from '@angular/material';
 
 
@@ -30,7 +31,8 @@ import {
         MatExpansionModule,
         MatGridListModule,
         MatSlideToggleModule,
-        MatCardModule
+        MatCardModule,
+        MatRadioModule
     ],
     exports: [
         BrowserModule,
@@ -44,7 +46,8 @@ import {
         MatExpansionModule,
         MatGridListModule,
         MatSlideToggleModule,
-        MatCardModule
+        MatCardModule,
+        MatRadioModule
     ]
 })
 export class ExternalModule { }
