@@ -154,6 +154,7 @@ export class SerializeService {
         } else {
             appRoot = JSON.parse(result.content);
         }
+        console.dir(appRoot);
         const validationErros = new OpenAPISchemaValidator({ version: 3 }).validate(appRoot);
         if (validationErros.errors.length) {
             // TODO Show errors to the user, probably throw exception and 
@@ -173,9 +174,10 @@ export class SerializeService {
             appPath.name = key;
             appPath.operations = [];
             this.methods
-                .filter(method => paths[key][method])
+                .filter(method => appPath[method])
                 .forEach(method => {
-                    appPath.operations.push(this.fromApiOperation('get', paths[key][method]));
+                    appPath.operations.push(this.fromApiOperation(method, appPath[method]));
+                    delete appPath[method];
                 });
             appPaths.push(appPath);
         });
@@ -187,6 +189,7 @@ export class SerializeService {
         appOperation.method = method;
         if (operation.responses)
             appOperation.appResponses = this.fromApiResponses(operation.responses);
+        delete appOperation.responses;
         return appOperation;
     }
 
@@ -196,6 +199,7 @@ export class SerializeService {
             const appResponse: any = responses[key];
             if (appResponse.content)
                 appResponse.appContent = this.fromApiContent(appResponse.content);
+            delete appResponse.content;
             appResponse.status = key;
             appResponses.push(appResponse);
         });
@@ -207,9 +211,37 @@ export class SerializeService {
         Object.keys(content).forEach(key => {
             const appMediaType: any = content[key];
             appMediaType.name = key;
+            if (appMediaType.schema)
+                appMediaType.appSchema = this.fromApiSchema(appMediaType.schema);
+            delete appMediaType.schema;
             appContent.push(appMediaType);
         });
         return appContent;
+    }
+
+    private fromApiSchema(schema: Schema): Schema {
+        if (schema.items)
+            schema.appItems = this.fromApiSchema(schema.items);
+        if (schema.properties)
+            schema.appProperties = this.fromApiProperties(schema.properties);
+        delete schema.items;
+        delete schema.properties;
+        return schema;
+    }
+
+    private fromApiProperties(properties: Schemas): Schema[] {
+        const appProperties: Schema[] = [];
+        Object.keys(properties).forEach(key => {
+            if (properties[key].properties)
+                properties[key].appProperties = this.fromApiProperties(properties[key].properties);
+            if (properties[key].items)
+                properties[key].appItems = this.fromAppSchema(properties[key].items);
+            delete properties[key].items;
+            delete properties[key].properties
+            properties[key].name = key;
+            appProperties.push(properties[key]);
+        });
+        return appProperties;
     }
 
 }
