@@ -3,10 +3,13 @@ import { Paths, Path } from '../model/path.model';
 import { Responses, Response } from '../model/responses.model';
 import { Content, MediaType } from '../model/content.model';
 import { Schema, Schemas } from '../model/schema.model';
-import { createNode, Document } from 'yaml';
+import { createNode, Document, parse } from 'yaml';
 import { Injectable } from '@angular/core';
 import { Operation } from '../model/operation.model';
 import OpenAPISchemaValidator from 'openapi-schema-validator';
+import { ReadResult } from './io.service';
+
+export type Format = 'JSON' | 'YAML';
 
 @Injectable()
 export class SerializeService {
@@ -131,10 +134,10 @@ export class SerializeService {
     private fromAppProperties(appProperties: Schema[]): Schemas {
         const properties: Schemas = new Schemas();
         appProperties.forEach(prop => {
-            if (prop.appProperties) 
+            if (prop.appProperties)
                 prop.properties = this.fromAppProperties(prop.appProperties);
-            
-            if (prop.appItems) 
+
+            if (prop.appItems)
                 prop.items = this.fromAppSchema(prop.appItems);
             delete prop.appProperties;
             delete prop.appItems;
@@ -144,11 +147,16 @@ export class SerializeService {
         return properties;
     }
 
-    public parse(content: string): Root {
-        const appRoot = JSON.parse(content);
-        const validationErros = new OpenAPISchemaValidator({version: 3}).validate(appRoot);
+    public parse(result: ReadResult): Root {
+        let appRoot;
+        if (result.format === 'YAML') {
+            appRoot = parse(result.content);
+        } else {
+            appRoot = JSON.parse(result.content);
+        }
+        const validationErros = new OpenAPISchemaValidator({ version: 3 }).validate(appRoot);
         if (validationErros.errors.length) {
-            // TODO Show errors to the user, probably throw exception
+            // TODO Show errors to the user, probably throw exception and 
             console.error('The openapi doc is invalid because: ');
             console.dir(validationErros.errors);
             return new Root();

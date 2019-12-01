@@ -6,7 +6,7 @@ import { Server } from 'src/app/model/server.model';
 import { SerializeService } from 'src/app/services/serialize.service';
 import { Root } from 'src/app/model/root.model';
 import { Path } from 'src/app/model/path.model';
-import { IOService } from 'src/app/services/io.service';
+import { IOService, ReadResult } from 'src/app/services/io.service';
 
 declare const Redoc: any;
 
@@ -78,8 +78,9 @@ export class RootComponent {
   }
 
   import() {
-    const content = this.ioService.read();
-    this.root = this.serializeService.parse(content);
+    const result: ReadResult = this.ioService.read();
+    if (!result.canceled)
+      this.root = this.serializeService.parse(result);
   }
 
   refresh() {
