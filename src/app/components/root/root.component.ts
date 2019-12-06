@@ -3,15 +3,8 @@ import { Router } from '@angular/router';
 
 import { DataService } from 'src/app/services/data.service';
 import { Server } from 'src/app/model/server.model';
-import { SerializeService } from 'src/app/services/serialize.service';
 import { Root } from 'src/app/model/root.model';
 import { Path } from 'src/app/model/path.model';
-import { IOService, ReadResult } from 'src/app/services/io.service';
-import { Components } from 'src/app/model/components.model';
-import { ExternalDocs } from 'src/app/model/misc.model';
-import { Info } from 'src/app/model/info.model';
-
-declare const Redoc: any;
 
 @Component({
   selector: 'rootform',
@@ -21,12 +14,8 @@ export class RootComponent {
 
   constructor(
     private router: Router,
-    private dataService: DataService,
-    private serializeService: SerializeService
+    private dataService: DataService
   ) { }
-
-  @ViewChild('redoc', { static: true })
-  redoc: ElementRef;
 
   root: Root = new Root();
 
@@ -68,15 +57,5 @@ export class RootComponent {
   // removeGroup(tagGroup: TagGroup) {
   //   this.root.tagGroups.splice(this.root.tagGroups.indexOf(tagGroup), 1);
   // }
-
-  refresh() {
-    Redoc.init(
-      this.serializeService.toJSONObject(this.root),
-      {
-        pathInMiddlePanel: true,
-        hideDownloadButton: true
-      },
-      this.redoc.nativeElement);
-  }
 
 }
