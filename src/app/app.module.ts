@@ -20,7 +20,7 @@ import { RootComponent } from './components/root/root.component';
 import { ServerComponent } from './components/server/server.component';
 import { TagGroupComponent } from './components/tag-group/tag-group.component';
 import { OperationComponent } from './components/operation/operation.component';
-import { ExportImportComponent } from './exportImport/exportImport.component';
+import { ExportImportComponent } from './components/exportImport/exportImport.component';
 
 @NgModule({
   declarations: [

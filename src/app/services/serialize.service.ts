@@ -72,13 +72,15 @@ export class SerializeService {
         appPath.operations
             .filter(appOperation => appOperation.method)
             .forEach(appOperation => {
-                appOperation.parameters
+                if (appOperation.parameters) {
+                    appOperation.parameters
                     .forEach(param => {
                         if (param.appSchema) {
                             param.schema = this.fromAppSchema(param.appSchema);
                             delete param.appSchema;
                         }
                     });
+                }
                 if (appOperation.appResponses) {
                     appOperation.responses = this.fromAppResponses(appOperation.appResponses);
                     delete appOperation.appResponses;
@@ -148,14 +150,13 @@ export class SerializeService {
     }
 
     public parse(result: ReadResult): Root {
-        let appRoot;
+        let appRoot: Root;
         if (result.format === 'YAML') {
             appRoot = parse(result.content);
         } else {
             appRoot = JSON.parse(result.content);
         }
-        console.dir(appRoot);
-        const validationErros = new OpenAPISchemaValidator({ version: 3 }).validate(appRoot);
+        const validationErros = new OpenAPISchemaValidator({ version: 3 }).validate(<any>appRoot);
         if (validationErros.errors.length) {
             // TODO Show errors to the user, probably throw exception and 
             console.error('The openapi doc is invalid because: ');
@@ -187,6 +188,15 @@ export class SerializeService {
     private fromApiOperation(method: string, operation: Operation): Operation {
         const appOperation: any = operation
         appOperation.method = method;
+        if (operation.parameters) {
+            operation.parameters
+            .forEach(param => {
+                if (param.schema) {
+                    param.appSchema = this.fromApiSchema(param.schema);
+                    delete param.schema;
+                }
+            });
+        }
         if (operation.responses)
             appOperation.appResponses = this.fromApiResponses(operation.responses);
         delete appOperation.responses;

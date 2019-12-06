@@ -7,6 +7,9 @@ import { SerializeService } from 'src/app/services/serialize.service';
 import { Root } from 'src/app/model/root.model';
 import { Path } from 'src/app/model/path.model';
 import { IOService, ReadResult } from 'src/app/services/io.service';
+import { Components } from 'src/app/model/components.model';
+import { ExternalDocs } from 'src/app/model/misc.model';
+import { Info } from 'src/app/model/info.model';
 
 declare const Redoc: any;
 
@@ -66,22 +69,6 @@ export class RootComponent {
   // removeGroup(tagGroup: TagGroup) {
   //   this.root.tagGroups.splice(this.root.tagGroups.indexOf(tagGroup), 1);
   // }
-
-  exportJSON() {
-    const content = this.serializeService.toJSONString(this.root);
-    this.ioService.save(content);
-  }
-
-  exportYAML() {
-    const content = this.serializeService.toYAMLString(this.root);
-    this.ioService.save(content);
-  }
-
-  import() {
-    const result: ReadResult = this.ioService.read();
-    if (!result.canceled)
-      this.root = this.serializeService.parse(result);
-  }
 
   refresh() {
     Redoc.init(
