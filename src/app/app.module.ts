@@ -10,6 +10,7 @@ import { ExternalModule } from './external.module';
 import { DataService } from './services/data.service';
 import { SerializeService } from './services/serialize.service';
 import { IOService } from './services/io.service';
+import { WrapService } from './services/wrap.service';
 // Components
 import { PathComponent } from './components/path/path.component';
 import { SchemaComponent } from './components/schema/schema.component';
@@ -51,6 +52,7 @@ import { ImportComponent } from './components/import/import.component';
     DataService,
     SerializeService,
     IOService,
+    WrapService,
     {
       provide: RouteReuseStrategy,
       useClass: ReuseStrategy
