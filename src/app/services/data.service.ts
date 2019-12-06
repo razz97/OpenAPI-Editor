@@ -4,7 +4,6 @@ import { Parameter } from '../model/parameter.model';
 import { Server } from '../model/server.model';
 import { Response } from '../model/responses.model';
 import { Path } from '../model/path.model';
-import { Root } from '../model/root.model';
 
 
 @Injectable()

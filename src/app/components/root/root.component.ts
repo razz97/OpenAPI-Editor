@@ -22,8 +22,7 @@ export class RootComponent {
   constructor(
     private router: Router,
     private dataService: DataService,
-    private serializeService: SerializeService,
-    private ioService: IOService
+    private serializeService: SerializeService
   ) { }
 
   @ViewChild('redoc', { static: true })
