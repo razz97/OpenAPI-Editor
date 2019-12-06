@@ -6,10 +6,12 @@ import { ResponseComponent } from './components/response/response.component';
 import { ServerComponent } from './components/server/server.component';
 import { RootComponent } from './components/root/root.component';
 import { TagGroupComponent } from './components/tag-group/tag-group.component';
+import { HomeComponent } from './components/home/home.component';
 
 
 const routes: Routes = [
-  { path: '', redirectTo: 'root', pathMatch: 'full' },
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: 'home', component: HomeComponent },
   { path: 'root', component: RootComponent },
   { path: 'server', component: ServerComponent },
   { path: 'tag-group', component: TagGroupComponent },

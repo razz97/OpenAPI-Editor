@@ -1,7 +1,5 @@
-<button mat-button color="primary" data-toggle="modal" data-target="#modal">Export...</button>
-<button mat-button color="primary" (click)="import()">Import</button>
-
-<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-hidden="true">
+<button mat-button color="primary" data-toggle="modal" [attr.data-target]="'#modal-export-' + modalId">Export...</button>
+<div class="modal fade" id="modal-export-{{modalId}}" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog mw-100 w-90" role="document">
         <div class="modal-content">
             <div class="modal-body">
@@ -12,7 +10,8 @@
                 </mat-radio-group>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-dismiss="modal" [disabled]="!exportFormat" (click)="export()">Export</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" [disabled]="!exportFormat"
+                    (click)="export()">Export</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
             </div>
         </div>

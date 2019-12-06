@@ -4,11 +4,13 @@ import { Parameter } from '../model/parameter.model';
 import { Server } from '../model/server.model';
 import { Response } from '../model/responses.model';
 import { Path } from '../model/path.model';
+import { Root } from '../model/root.model';
 
 
 @Injectable()
 export class DataService {
 
+  private rootObservable = new BehaviorSubject<Root>(null);
   private paramObservable = new BehaviorSubject<Parameter>(null);
   private responseObservable = new BehaviorSubject<Response>(null);
   private serverObservable = new BehaviorSubject<Server>(null);
@@ -44,6 +46,14 @@ export class DataService {
 
   sendPath(path: Path) {
     this.pathObservable.next(path);
+  }
+
+  observeRoot(change: (root: Root) => void) {
+    this.rootObservable.subscribe(change);
+  }
+
+  sendRoot(root: Root) {
+    this.rootObservable.next(root);
   }
 
   // private tagGroupObservable = new BehaviorSubject(new TagGroup());

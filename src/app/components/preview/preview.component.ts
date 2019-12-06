@@ -16,6 +16,8 @@ export class PreviewComponent {
 
   @Input()
   root: Root
+  @Input()
+  modalId: number;
 
   @ViewChild('redoc', { static: true })
   redoc: ElementRef;

@@ -20,9 +20,11 @@ import { RootComponent } from './components/root/root.component';
 import { ServerComponent } from './components/server/server.component';
 import { TagGroupComponent } from './components/tag-group/tag-group.component';
 import { OperationComponent } from './components/operation/operation.component';
-import { ExportImportComponent } from './components/exportImport/exportImport.component';
 import { InfoComponent } from './components/info/info.component';
 import { PreviewComponent } from './components/preview/preview.component';
+import { HomeComponent } from './components/home/home.component';
+import { ExportComponent } from './components/export/export.component';
+import { ImportComponent } from './components/import/import.component';
 
 @NgModule({
   declarations: [
@@ -35,9 +37,11 @@ import { PreviewComponent } from './components/preview/preview.component';
     ServerComponent,
     TagGroupComponent,
     OperationComponent,
-    ExportImportComponent,
     InfoComponent,
-    PreviewComponent
+    PreviewComponent,
+    HomeComponent,
+    ExportComponent,
+    ImportComponent
   ],
   imports: [
     AppRoutingModule,

@@ -1,0 +1,16 @@
+<app-import (onImport)="onImport($event)" ></app-import>
+<p>
+    Documents
+    <button mat-button color="primary" (click)="addRoot()">
+        <i class="material-icons">add</i>
+    </button>
+</p>
+<div class="list-group">
+    <div class="list-group-item" *ngFor="let root of roots; let i = index">
+        {{root.info.title ? root.info.title : 'New document'}}
+        <app-preview [root]="root" [modalId]="i"></app-preview>
+        <app-export [root]="root" [modalId]="i"></app-export>
+        <button mat-button color="primary" (click)="editRoot(root)"><i class="material-icons">edit</i></button>
+        <button mat-button color="warn" (click)="removeRoot(root)"><i class="material-icons">clear</i></button>
+    </div>
+</div>

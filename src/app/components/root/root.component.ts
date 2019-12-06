@@ -15,9 +15,11 @@ export class RootComponent {
   constructor(
     private router: Router,
     private dataService: DataService
-  ) { }
+  ) { 
+    dataService.observeRoot(root => this.root = root);
+  }
 
-  root: Root = new Root();
+  root: Root;
 
   addServer() {
     this.root.servers.push(new Server());
@@ -43,6 +45,10 @@ export class RootComponent {
 
   removePath(path: Path) {
     this.root.appPaths.splice(this.root.appPaths.indexOf(path), 1);
+  }
+
+  back() {
+    this.router.navigateByUrl('home');
   }
 
   // addGroup() {

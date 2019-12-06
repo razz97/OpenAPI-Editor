@@ -1,5 +1,5 @@
-<app-preview [root]="root" ></app-preview>
-<app-export-import [(root)]="root"></app-export-import>
+<button mat-button color="primary" (click)="back()"><i class="material-icons">keyboard_backspace</i></button>
+<app-preview [root]="root" modalId="root-component"></app-preview>
 <mat-accordion>
     <mat-expansion-panel>
         <mat-expansion-panel-header>Info</mat-expansion-panel-header>
